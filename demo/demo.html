@@ -10,37 +10,4 @@
 <div id="divCanvas"></div>
 </body>
 </html>
-<script src="http://style.c.aliimg.com/fdevlib/js/gallery/jquery/jquery-latest.js"></script>
-<script src="lib/snap.svg.js"></script>
-
-<script>
-
-    function handleFileSelect() {
-        var file = this.files[0]; // FileList object
-        var reader = new FileReader();
-        reader.readAsText(file);
-        reader.onload = function(e){
-            var ret = this.result;
-            $("#divCanvas").html(ret);
-
-            var s = Snap("#divCanvas > svg");
-            var c = s.circle(150, 150, 30);
-            c.attr({
-                fill: "#bada55",
-                stroke: "#000",
-                strokeWidth: 2
-            });
-
-            s.select("g").attr({
-                fill:"red"
-            });
-        };
-    }
-
-    function pageInit(){
-        $('#files').on('change', handleFileSelect);
-    }
-
-
-    $(pageInit());
-</script>
+<script data-main="main" src="http://cdn.staticfile.org/require.js/2.1.14/require.min.js"></script>
