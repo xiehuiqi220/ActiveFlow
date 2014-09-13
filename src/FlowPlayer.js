@@ -6,11 +6,10 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
      * @param {PlayNode} startNode - 开始节点
      * @param {SnapElement} rootSnapEle - 根snapSvg对象
      */
-    function FlowPlayer(startNode , rootSnapEle){
-        this.startNode = startNode;
+    function FlowPlayer(startPlayNode , rootSnapEle){
+        this.startPlayNode = startPlayNode;
         //一开始即将播放的节点就是开始节点
-        this.currentPlayNode = this.startNode;
-        this.rootSnapEle = rootSnapEle;
+        this.currentPlayNode = this.startPlayNode;
         this.queue = new PlayQueue();
 
         _init.call(this);
@@ -19,7 +18,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
     //播放效果初始化
     _init = function(){
         //开始节点效果
-        this.startNode.activate();
+        this.startPlayNode.activate();
         //根元素效果
         //this.rootSnapEle.fn();
     };
