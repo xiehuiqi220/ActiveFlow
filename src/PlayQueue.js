@@ -21,5 +21,29 @@ define(['jquery','Snap'], function ($) {
         this.nodes = [];
     };
 
+    PlayQueue.prototype.indexOf=function(obj){
+        for (var i=0;i!=this.nodes.length;i++){
+            if(this.nodes[i]==obj)
+                return i;
+        }
+        return -1;
+    };
+
+    PlayQueue.prototype.lastEle=function(){
+        if(this.nodes.length>0)
+            return this.nodes[this.nodes.length-1];
+        else
+            return null;
+    };
+    PlayQueue.prototype.length=function(){
+        return this.nodes.length;
+    };
+    PlayQueue.prototype.get=function(index){
+        if(index<this.nodes.length&&length>=0)
+            return this.nodes[index];
+        else
+            return null;
+    };
+
     return PlayQueue;
 });
