@@ -11,11 +11,11 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
         var lines = [];
         $('g:shape',root).each(function(i,shape){
             var 
-            path = $('path', shape)[0],
+            path = $('path,rect', shape)[0],
             translate = shape.getAttribute('transform').match(/translate\(([0-9\-\.]+),([0-9\-\.]+)\)/),
             matrix = translate?root.createSVGMatrix().translate(translate[1],translate[2]):root.createSVGMatrix();
 
-            if(path.pathSegList[path.pathSegList.length-1].pathSegTypeAsLetter==="Z"){
+            if((path.tagName === 'rect')||(path.pathSegList[path.pathSegList.length-1].pathSegTypeAsLetter==="Z")){
                 var
                 box = path.getBBox(),
                 start = root.createSVGPoint(),
