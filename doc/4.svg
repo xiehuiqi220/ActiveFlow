@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- 由 Microsoft Visio, SVG Export 生成 4.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="11.6929in" height="8.26772in"
+		viewBox="0 0 841.89 595.276" xml:space="preserve" color-interpolation-filters="sRGB" class="st11">
+	<v:documentProperties v:langID="2052" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(0):26"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {visibility:visible}
+		.st2 {fill:#5b9bd5;fill-opacity:0.22;filter:url(#filter_2)}
+		.st3 {fill:none;filter:url(#filter_2);stroke:#5b9bd5;stroke-opacity:0.22}
+		.st4 {fill:#5b9bd5}
+		.st5 {stroke:#c8c8c8;stroke-width:0.25}
+		.st6 {fill:#feffff;font-family:黑体;font-size:0.666664em}
+		.st7 {fill:#5b9bd5;fill-opacity:0.22;filter:url(#filter_2);stroke:#5b9bd5;stroke-opacity:0.22}
+		.st8 {fill:#5b9bd5;stroke:#c8c8c8;stroke-width:0.25}
+		.st9 {marker-end:url(#mrkr4-38);stroke:#5b9bd5;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st10 {fill:#5b9bd5;fill-opacity:1;stroke:#5b9bd5;stroke-opacity:1;stroke-width:0.28409090909091}
+		.st11 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Markers">
+		<g id="lend4">
+			<path d="M 2 1 L 0 0 L 2 -1 L 2 1 " style="stroke:none"/>
+		</g>
+		<marker id="mrkr4-38" class="st10" v:arrowType="4" v:arrowSize="2" v:setback="7.04" refX="-7.04" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend4" transform="scale(-3.52,-3.52) "/>
+		</marker>
+	</defs>
+	<defs id="Filters">
+		<filter id="filter_2">
+			<feGaussianBlur stdDeviation="2"/>
+		</filter>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+		</v:userDefs>
+		<title>页-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="流程图" v:index="0"/>
+		<v:layer v:name="连接线" v:index="1"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" v:layerMember="0" transform="translate(155.906,-389.764)">
+			<title>起始</title>
+			<desc>开始</desc>
+			<v:custProps>
+				<v:cp v:nameU="Cost" v:lbl="成本" v:type="7" v:format="@" v:langID="2052"/>
+				<v:cp v:nameU="Duration" v:lbl="持续时间" v:type="2" v:langID="2052"/>
+				<v:cp v:nameU="Resources" v:lbl="资源" v:langID="2052"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(2,2,2,2)" v:tabSpace="42.5197"/>
+			<v:textRect cx="35.4331" cy="574.016" width="53.86" height="42.5197"/>
+			<g id="shadow1-2" v:groupContext="shadow" v:shadowOffsetX="0.345598" v:shadowOffsetY="-1.97279" v:shadowType="1"
+					transform="matrix(1,0,0,1,0.345598,1.97279)" class="st1">
+				<path d="M8.5 595.28 A8.50394 21.2598 0 1 1 8.5 552.76 L62.36 552.76 A8.50394 21.2598 0 1 1 62.36 595.28 L8.5 595.28
+							 Z" class="st2"/>
+				<path d="M8.5 595.28 L8.5 552.76" class="st3"/>
+				<path d="M62.36 595.28 L62.36 552.76" class="st3"/>
+				<path d="M8.5 595.28 A8.50394 21.2598 0 1 1 8.5 552.76 L62.36 552.76 A8.50394 21.2598 0 1 1 62.36 595.28 L8.5 595.28"
+						class="st3"/>
+			</g>
+			<path d="M8.5 595.28 A8.50394 21.2598 0 1 1 8.5 552.76 L62.36 552.76 A8.50394 21.2598 0 1 1 62.36 595.28 L8.5 595.28 Z"
+					class="st4"/>
+			<path d="M8.5 595.28 L8.5 552.76" class="st5"/>
+			<path d="M62.36 595.28 L62.36 552.76" class="st5"/>
+			<path d="M8.5 595.28 A8.50394 21.2598 0 1 1 8.5 552.76 L62.36 552.76 A8.50394 21.2598 0 1 1 62.36 595.28 L8.5 595.28"
+					class="st5"/>
+			<text x="27.43" y="576.68" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>开始</text>		</g>
+		<g id="shape2-14" v:mID="2" v:groupContext="shape" v:layerMember="0" transform="translate(155.906,-148.402)">
+			<title>终结符</title>
+			<desc>结束</desc>
+			<v:custProps>
+				<v:cp v:nameU="Cost" v:lbl="成本" v:type="7" v:format="@" v:langID="2052"/>
+				<v:cp v:nameU="Duration" v:lbl="持续时间" v:type="2" v:langID="2052"/>
+				<v:cp v:nameU="Resources" v:lbl="资源" v:langID="2052"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(2,2,2,2)" v:tabSpace="42.5197"/>
+			<v:textRect cx="35.4331" cy="581.102" width="70.87" height="28.3465"/>
+			<g id="shadow2-15" v:groupContext="shadow" v:shadowOffsetX="0.345598" v:shadowOffsetY="-1.97279" v:shadowType="1"
+					transform="matrix(1,0,0,1,0.345598,1.97279)" class="st1">
+				<path d="M14.17 595.28 L56.69 595.28 A14.1732 14.1732 -180 0 0 56.69 566.93 L14.17 566.93 A14.1732 14.1732 -180 1
+							 0 14.17 595.28 Z" class="st7"/>
+			</g>
+			<path d="M14.17 595.28 L56.69 595.28 A14.1732 14.1732 -180 0 0 56.69 566.93 L14.17 566.93 A14.1732 14.1732 -180 1 0 14.17
+						 595.28 Z" class="st8"/>
+			<text x="27.43" y="583.77" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>结束</text>		</g>
+		<g id="shape3-20" v:mID="3" v:groupContext="shape" v:layerMember="0" transform="translate(155.906,-269.291)">
+			<title>过程</title>
+			<desc>计算</desc>
+			<v:custProps>
+				<v:cp v:nameU="Cost" v:lbl="成本" v:type="7" v:format="@" v:langID="2052"/>
+				<v:cp v:nameU="Duration" v:lbl="持续时间" v:type="2" v:langID="2052"/>
+				<v:cp v:nameU="Resources" v:lbl="资源" v:langID="2052"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="AntiScale" v:val="VT0(1):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+				<v:ud v:nameU="Scale" v:val="VT0(1):26"/>
+			</v:userDefs>
+			<v:textBlock v:margins="rect(2,2,2,2)" v:tabSpace="42.5197"/>
+			<v:textRect cx="35.4331" cy="574.016" width="53.86" height="42.5197"/>
+			<g id="shadow3-21" v:groupContext="shadow" v:shadowOffsetX="0.345598" v:shadowOffsetY="-1.97279" v:shadowType="1"
+					transform="matrix(1,0,0,1,0.345598,1.97279)" class="st1">
+				<path d="M0 595.28 L70.87 595.28 L70.87 552.76 L0 552.76 L0 595.28 Z" class="st2"/>
+				<path d="M0 595.28 L70.87 595.28 L70.87 552.76 L0 552.76 L0 595.28" class="st3"/>
+				<path d="M8.5 595.28 L8.5 552.76" class="st3"/>
+				<path d="M62.36 595.28 L62.36 552.76" class="st3"/>
+			</g>
+			<path d="M0 595.28 L70.87 595.28 L70.87 552.76 L0 552.76 L0 595.28 Z" class="st4"/>
+			<path d="M0 595.28 L70.87 595.28 L70.87 552.76 L0 552.76 L0 595.28" class="st5"/>
+			<path d="M8.5 595.28 L8.5 552.76" class="st5"/>
+			<path d="M62.36 595.28 L62.36 552.76" class="st5"/>
+			<text x="27.43" y="576.68" class="st6" v:langID="2052"><v:paragraph v:horizAlign="1"/><v:tabList/>计算</text>		</g>
+		<g id="shape4-33" v:mID="4" v:groupContext="shape" v:layerMember="1" transform="translate(184.252,-389.764)">
+			<title>动态连接线</title>
+			<path d="M7.09 595.28 L7.09 666.19" class="st9"/>
+		</g>
+		<g id="shape5-39" v:mID="5" v:groupContext="shape" v:layerMember="1" transform="translate(184.252,-269.291)">
+			<title>动态连接线.5</title>
+			<path d="M7.09 595.28 L7.09 680.78" class="st9"/>
+		</g>
+		<g id="shape6-44" v:mID="6" v:groupContext="shape" v:layerMember="0" transform="translate(269.291,-269.291)">
+			<title>判定 2</title>
+			<v:custProps>
+				<v:cp v:nameU="Cost" v:lbl="成本" v:type="7" v:format="@" v:langID="2052"/>
+				<v:cp v:nameU="Duration" v:lbl="持续时间" v:type="2" v:langID="2052"/>
+				<v:cp v:nameU="Resources" v:lbl="资源" v:langID="2052"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<g id="shadow6-45" v:groupContext="shadow" v:shadowOffsetX="0.345598" v:shadowOffsetY="-1.97279" v:shadowType="1"
+					transform="matrix(1,0,0,1,0.345598,1.97279)" class="st1">
+				<path d="M0 574.02 L21.26 552.76 L42.52 574.02 L21.26 595.28 L0 574.02 Z" class="st7"/>
+			</g>
+			<path d="M0 574.02 L21.26 552.76 L42.52 574.02 L21.26 595.28 L0 574.02 Z" class="st8"/>
+		</g>
+		<g id="shape7-49" v:mID="7" v:groupContext="shape" v:layerMember="1" transform="translate(226.772,-283.465)">
+			<title>动态连接线.7</title>
+			<path d="M0 588.19 L35.48 588.19" class="st9"/>
+		</g>
+		<g id="shape8-54" v:mID="8" v:groupContext="shape" v:layerMember="1" transform="translate(290.551,-269.291)">
+			<title>动态连接线.8</title>
+			<path d="M0 595.28 L0 701.99 L-56.74 701.99" class="st9"/>
+		</g>
+	</g>
+</svg>

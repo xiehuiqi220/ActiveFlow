@@ -46,10 +46,12 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
             return;
         }
         var timeForAni=null;
-        if(this.currentPlayNode.isRoad==true)
+        if(this.currentPlayNode.type=="road"){
             timeForAni=2000;
+        }
         else
             timeForAni=4000;
+        //console.log(timeForAni);
         this.currentPlayIntervalId= this.currentPlayNode.activate(timeForAni);
 
         if(0==this.currentPlayNode.nextNodes.length){
@@ -67,7 +69,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
             //播放当前节点
             playFn.call(obj);
         };
-        setTimeout(playNext,timeForAni+200);
+        setTimeout(playNext,timeForAni+1200);
     };
 
     //回退到上一节点

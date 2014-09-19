@@ -6,20 +6,28 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
         $.expr[':'].shape=function(element){
             return (element.getAttribute('v:groupcontext')==='shape');
         };
-        
+
         var nodes = [];
         var lines = [];
         $('g:shape',root).each(function(i,shape){
             var 
-            path = $('path', shape)[0],
+            path = $('path,rect', shape)[0],
+            textNode = $('text', shape),
+            text = textNode.length?textNode.eq(0).text():'',
             translate = shape.getAttribute('transform').match(/translate\(([0-9\-\.]+),([0-9\-\.]+)\)/),
             matrix = translate?root.createSVGMatrix().translate(translate[1],translate[2]):root.createSVGMatrix();
 
-            if(path.pathSegList[path.pathSegList.length-1].pathSegTypeAsLetter==="Z"){
+            if(!path){
+                return; 
+            }
+            if((path.tagName === 'rect')||(path.pathSegList[path.pathSegList.length-1].pathSegTypeAsLetter==="Z")){
                 var
+                playNode = new PlayNode(path,shape,root),
                 box = path.getBBox(),
                 start = root.createSVGPoint(),
                 end = root.createSVGPoint();
+
+                playNode.text = text;
 
                 start.x = box.x;
                 start.y = box.y;
@@ -29,18 +37,22 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
                 nodes.push({
                     start:start.matrixTransform(matrix),
                     end:end.matrixTransform(matrix),
-                    playNode:new PlayNode(path,root)
+                    text:text,
+                    playNode:playNode
                 });
             }
             else{
                 var
+                playNode = new PlayNode(path,shape,root),
                 length = Math.ceil(path.getTotalLength());
 
+                playNode.text = text;
+
                 lines.push({
-                    path:path,
                     start:path.getPointAtLength(0).matrixTransform(matrix),
                     end:path.getPointAtLength(length-1).matrixTransform(matrix),
-                    playNode:new PlayNode(path,root)
+                    text:text,
+                    playNode:playNode
                 });
             }
         });
@@ -115,6 +127,12 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             }
         });
 
-        return startNode.playNode;
+        //console.log(nodes);
+        //console.log(lines);
+        return {
+            nodes:nodes,
+            lines:lines,
+            startNode:startNode.playNode
+        };
     };
 });
