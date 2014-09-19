@@ -9,6 +9,7 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
         
         var nodes = [];
         var lines = [];
+        root = root.node?root.node:root;
         $('g:shape',root).each(function(i,shape){
             var 
             path = $('path,rect', shape)[0],
