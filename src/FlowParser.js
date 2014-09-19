@@ -30,7 +30,7 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
                 nodes.push({
                     start:start.matrixTransform(matrix),
                     end:end.matrixTransform(matrix),
-                    playNode:new PlayNode(path,root)
+                    playNode:new PlayNode(path,shape,root)
                 });
             }
             else{
@@ -38,10 +38,9 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
                 length = Math.ceil(path.getTotalLength());
 
                 lines.push({
-                    path:path,
                     start:path.getPointAtLength(0).matrixTransform(matrix),
                     end:path.getPointAtLength(length-1).matrixTransform(matrix),
-                    playNode:new PlayNode(path,root)
+                    playNode:new PlayNode(path,shape,root)
                 });
             }
         });
@@ -116,6 +115,10 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             }
         });
 
-        return startNode.playNode;
+        return {
+            nodes:nodes,
+            lines:lines,
+            startNode:startNode.playNode
+        };
     };
 });
