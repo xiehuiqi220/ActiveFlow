@@ -6,12 +6,14 @@ requirejs.config({
         FlowPlayer: ["../src/FlowPlayer"],
         PlayQueue: ["../src/PlayQueue"],
         PlayNode: ["../src/PlayNode"],
-        FlowParser: ["../src/FlowParser"]
+        FlowParser: ["../src/FlowParser"],
+        TTS: ["../src/TTS"]
     }
 });
 
-define(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
+define(['jquery','Snap','ActiveFlow','TTS'], function ($ , Snap , ActiveFlow ,TTS) {
     var s;
+    window.TTS = TTS;
     function handleFileSelect() {
         var file = this.files[0]; // FileList object
         var reader = new FileReader();
