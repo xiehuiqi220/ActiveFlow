@@ -20,7 +20,7 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             textNode = $('text', shape),
             text = textNode.length?textNode.eq(0).text():'',
             /* 获取平移的矩阵 */
-            translate = shape.getAttribute('transform').match(/translate\(([0-9\-\.]+),([0-9\-\.]+)\)/),
+            translate = shape.getAttribute('transform')?shape.getAttribute('transform').match(/translate\(([0-9\-\.]+),([0-9\-\.]+)\)/):null,
             matrix = translate?root.createSVGMatrix().translate(translate[1],translate[2]):root.createSVGMatrix();
 
             if(!path){
