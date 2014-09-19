@@ -13,7 +13,8 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
         this.pathStr=null;//path string值，如果不是path元素，则转化获得对应path string值
         this.lastWrapLinePathSnap=null;//
         this.radialIntervalId=null;//
-        this.isStop=false;
+        this.isStop=true;
+        this.wrapLength=0;
     }
 
     //动画：绘制震源效果
@@ -41,7 +42,7 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
         var pathLength=Snap.path.getTotalLength(playNode.pathStr);
         var pathIncStep=pathLength/numOfSteps;
 
-        var drawPathLength=pathIncStep;
+        var drawPathLength=playNode.wrapLength;
 
         var lastDrawPathSnap=null;
 
@@ -51,19 +52,17 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
             if(lastDrawPathSnap)
                 lastDrawPathSnap.remove();
 
-            if(playNode.isStop==true)
-                return;
-
             var originStrokeWidth= playNode.snapEle.attr("strokeWidth");
             //var newStrokeWidth=parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2));
             var subPath=Snap.path.getSubpath(playNode.pathStr,0,drawPathLength);
             playNode.lastWrapLinePathSnap=lastDrawPathSnap=playNode.rootSnapEle.path(subPath).attr({strokeWidth:originStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
 
             drawPathLength+=pathIncStep;
+            playNode.wrapLength=drawPathLength;
             if(drawPathLength<=pathLength&&false==playNode.isStop)
                 setTimeout(drawSubPath,timeStep);
             else if(drawPathLength-pathIncStep<pathLength&&false==playNode.isStop){
-                drawPathLength=pathLength;
+                playNode.wrapLength=drawPathLength=pathLength;
                 setTimeout(drawSubPath,timeStep);
             }
         };
@@ -122,16 +121,35 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
     };
 
     PlayNode.prototype.stop=function(){
-        //取消上一节点震源效果
-        clearInterval(this.radialIntervalId);
-
-        //取消上一节点wrap的红线
-        console.log(this.lastWrapLinePathSnap);
+        //动画停止标示
         this.isStop=true;
+
+        //取消上一节点震源效果
+        if(this.radialIntervalId){
+            clearInterval(this.radialIntervalId);
+            this.radialIntervalId=null;
+        }
+
+        //wrap的红线效果停止
+        /*
         if(this.lastWrapLinePathSnap){
             this.lastWrapLinePathSnap.remove();
             this.lastWrapLinePathSnap=null;
         }
+        */
+
+    };
+    PlayNode.prototype.reset=function(){
+        if(this.lastWrapLinePathSnap){
+            this.lastWrapLinePathSnap.remove();
+            this.lastWrapLinePathSnap=null;
+        }
+        if(this.radialIntervalId){
+            clearInterval(this.radialIntervalId);
+            this.radialIntervalId=null;
+        }
+        this.isStop=true;
+        this.wrapLength=0;
     };
 
     return PlayNode;

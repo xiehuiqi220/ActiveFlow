@@ -34,8 +34,12 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
     //单步播放当前节点
     FlowPlayer.prototype.play = function(notSuccessive){
         var prevOne=this.queue.lastEle();
-        if(prevOne)
+        if(prevOne){
             prevOne.stop();
+            //console.log(prevOne.wrapLength);
+            //console.log(prevOne.lastWrapLinePathSnap);
+        }
+
 
         if(!this.currentPlayNode){
 
@@ -63,19 +67,21 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
             //播放当前节点
             playFn.call(obj);
         };
-        setTimeout(playNext,timeForAni);
+        setTimeout(playNext,timeForAni+200);
     };
 
     //回退到上一节点
     FlowPlayer.prototype.back = function(){
-        this.queue.pop();
+        var realPlayNow=this.queue.pop();
+        realPlayNow.reset();
         this.currentPlayNode=this.queue.pop();
+        this.currentPlayNode.reset();
         this.play();
     };
 
     //暂停
     FlowPlayer.prototype.pause = function(){
-        var prevOne=this.queue.lastEle();
+        var prevOne=this.queue.pop();
         if(prevOne){
             prevOne.stop();
             this.currentPlayNode=prevOne;
