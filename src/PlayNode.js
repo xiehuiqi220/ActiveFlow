@@ -6,7 +6,6 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
         this.group = S(groupSnapEle);
         this.nextNodes = [];//继任节点集合
         this.prevNodes = [];//父亲节点集合
-        this.isStart = false;//是否是开始节点
         this.isRoad = false;//是否是路径
         this.type = null;
         this.cx = null;//中心点x坐标，如果节点不是路径，需要设置此值
@@ -75,6 +74,11 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
             }
         };
         drawSubPath();
+    };
+
+    //激活该节点播放动画
+    PlayNode.prototype.isStart = function(){
+        return this.type == "start";
     };
 
     //激活该节点播放动画
@@ -147,14 +151,6 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
             clearInterval(this.radialIntervalId);
             this.radialIntervalId = null;
         }
-
-        //wrap的红线效果停止
-        /*
-         if(this.lastWrapLinePathSnap){
-         this.lastWrapLinePathSnap.remove();
-         this.lastWrapLinePathSnap=null;
-         }
-         */
 
     };
     PlayNode.prototype.reset = function () {

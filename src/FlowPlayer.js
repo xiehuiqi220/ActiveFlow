@@ -25,14 +25,11 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
     };
 
     //单步播放当前节点
-    FlowPlayer.prototype.play = function (notSuccessive) {
+    FlowPlayer.prototype.play = function () {
         var prevOne = this.queue.lastEle();
         if (prevOne) {
             prevOne.stop();
-            //console.log(prevOne.wrapLength);
-            //console.log(prevOne.lastWrapLinePathSnap);
         }
-
 
         if (!this.currentPlayNode) {
             return;
@@ -41,37 +38,37 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         if (this.currentPlayNode.type == "road") {
             timeForAni = 2000;
         }
-        else
+        else {
             timeForAni = 4000;
+        }
         //console.log(timeForAni);
         this.queue.push(this.currentPlayNode);
-        var obj=this;
+        var obj = this;
 
-        this.currentPlayIntervalId= this.currentPlayNode.activate(timeForAni,function(){ 
-            if(0==obj.currentPlayNode.nextNodes.length){
-                obj.currentPlayNode=null;
-            }else{
-                if(obj.currentPlayNode.nextNodes.length === 1){
-                    obj.currentPlayNode=obj.currentPlayNode.nextNodes[0];
+        this.currentPlayIntervalId = this.currentPlayNode.activate(timeForAni, function () {
+            if (0 == obj.currentPlayNode.nextNodes.length) {
+                obj.currentPlayNode = null;
+            } else {
+                if (obj.currentPlayNode.nextNodes.length === 1) {
+                    obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
                 }
-                else{
+                else {
                     var n = prompt("please enter number");
-                    obj.currentPlayNode=obj.currentPlayNode.nextNodes[n-1];
+                    obj.currentPlayNode = obj.currentPlayNode.nextNodes[n - 1];
                 }
             }
-            setTimeout(function(){
-               obj.play();
-            },1200);
         });
     };
 
     //回退到上一节点
     FlowPlayer.prototype.back = function () {
-        var realPlayNow = this.queue.pop();
-        realPlayNow.reset();
+        //开始节点无法再回退
+        if(this.currentPlayNode.isStart()){
+            return false;
+        }
         this.currentPlayNode = this.queue.pop();
         this.currentPlayNode.reset();
-        this.play();
+        this.currentPlayNode = this.queue.lastEle();
     };
 
     //暂停
