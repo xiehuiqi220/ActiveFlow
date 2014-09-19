@@ -22,9 +22,12 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             }
             if((path.tagName === 'rect')||(path.pathSegList[path.pathSegList.length-1].pathSegTypeAsLetter==="Z")){
                 var
+                playNode = new PlayNode(path,shape,root),
                 box = path.getBBox(),
                 start = root.createSVGPoint(),
                 end = root.createSVGPoint();
+
+                playNode.text = text;
 
                 start.x = box.x;
                 start.y = box.y;
@@ -35,18 +38,21 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
                     start:start.matrixTransform(matrix),
                     end:end.matrixTransform(matrix),
                     text:text,
-                    playNode:new PlayNode(path,shape,root)
+                    playNode:playNode
                 });
             }
             else{
                 var
+                playNode = new PlayNode(path,shape,root),
                 length = Math.ceil(path.getTotalLength());
+
+                playNode.text = text;
 
                 lines.push({
                     start:path.getPointAtLength(0).matrixTransform(matrix),
                     end:path.getPointAtLength(length-1).matrixTransform(matrix),
                     text:text,
-                    playNode:new PlayNode(path,shape,root)
+                    playNode:playNode
                 });
             }
         });
