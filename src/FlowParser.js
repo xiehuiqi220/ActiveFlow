@@ -108,11 +108,11 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
         
         var startNode;
         $.each(nodes, function(i,node){
-            if(node.playNode.prevNodes.length ===0 ){
+            if((node.playNode.prevNodes.length===0)&&(node.playNode.nextNodes.length>0)){
                 node.playNode.type = 'start';
                 startNode = node;
             }
-            else if(node.playNode.nextNodes.length ===0 ){
+            else if((node.playNode.nextNodes.length===0)&&(node.playNode.prevNodes.length>0)){
                 node.playNode.type = 'end';
             }
             else if(node.playNode.nextNodes.length>=2){
