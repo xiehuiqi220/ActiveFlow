@@ -37,7 +37,6 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
                 nodes.push({
                     start:start.matrixTransform(matrix),
                     end:end.matrixTransform(matrix),
-                    text:text,
                     playNode:playNode
                 });
             }
@@ -51,7 +50,6 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
                 lines.push({
                     start:path.getPointAtLength(0).matrixTransform(matrix),
                     end:path.getPointAtLength(length-1).matrixTransform(matrix),
-                    text:text,
                     playNode:playNode
                 });
             }
@@ -66,16 +64,15 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             ends.push({x:line.end.x,y:line.end.y});
 
             for(var i = 1;i<5;i++){
-                starts.push({x:line.start.x-m*i,y:line.start.y-m*i});
+                starts.push({x:line.start.x+m*i,y:line.start.y+m*i});
                 starts.push({x:line.start.x-m*i,y:line.start.y+m*i});
                 starts.push({x:line.start.x+m*i,y:line.start.y-m*i});
-                starts.push({x:line.start.x+m*i,y:line.start.y+m*i});
-                ends.push({x:line.end.x-m*i,y:line.end.y-m*i});
+                starts.push({x:line.start.x-m*i,y:line.start.y-m*i});
+                ends.push({x:line.end.x+m*i,y:line.end.y+m*i});
                 ends.push({x:line.end.x-m*i,y:line.end.y+m*i});
                 ends.push({x:line.end.x+m*i,y:line.end.y-m*i});
-                ends.push({x:line.end.x+m*i,y:line.end.y+m*i});
+                ends.push({x:line.end.x-m*i,y:line.end.y-m*i});
             }
-
             $.each(nodes,function(j,node){
                 $.each(starts,function(n,point){
                     if((point.x>=node.start.x)&&(point.x<=node.end.x)&&(point.y>=node.start.y)&&(point.y<=node.end.y)){
@@ -102,13 +99,16 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
                 line.playNode.type = 'road';
             }
             else{
-                delete line;
+                line.playNode.type = 'other';
             }
         });
         
         var startNode;
         $.each(nodes, function(i,node){
-            if((node.playNode.prevNodes.length===0)&&(node.playNode.nextNodes.length>0)){
+            if((node.playNode.prevNodes.length===0)&&(node.playNode.nextNodes.length===0)){
+                node.playNode.type = 'other';
+            }
+            else if((node.playNode.prevNodes.length===0)&&(node.playNode.nextNodes.length>0)){
                 node.playNode.type = 'start';
                 startNode = node;
             }
@@ -126,8 +126,8 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
         //console.log(nodes);
         //console.log(lines);
         return {
-            nodes:nodes,
-            lines:lines,
+            nodes:nodes.filter(function(obj){return (obj.playNode.type!=='other');}),
+            lines:lines.filter(function(obj){return (obj.playNode.type!=='other');}),
             startNode:startNode.playNode
         };
     };
