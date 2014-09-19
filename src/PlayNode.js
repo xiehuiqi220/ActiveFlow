@@ -41,6 +41,34 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
 
     //动画：绘制包裹线条效果
     var _genLineFill=function(playNode,timeForAni,callback){
+        var
+        startTime = Date.now(),
+        pathLength=Snap.path.getTotalLength(playNode.pathStr),
+        originStrokeWidth= playNode.snapEle.attr("strokeWidth"),
+        newStrokeWidth=Math.max(parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2)),1),
+        lastDrawPathSnap,
+
+        render = function(){
+            var
+            time = Date.now()-startTime,
+            drawPathLength = Math.min(pathLength,Math.ceil(pathLength*time/timeForAni)),
+            subPath=Snap.path.getSubpath(playNode.pathStr,0,drawPathLength);
+            if(lastDrawPathSnap){
+                lastDrawPathSnap.remove();
+            }
+            lastDrawPathSnap = playNode.group.path(subPath).attr({strokeWidth:newStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
+            if(time>timeForAni){
+                callback()
+            }
+            else{
+                requestAnimationFrame(render);
+            }
+        };
+
+        render();
+
+        
+        /*
         var timeStep=100;
         var numOfSteps=timeForAni/timeStep;
         var pathLength=Snap.path.getTotalLength(playNode.pathStr);
@@ -74,6 +102,7 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
             }
         };
         drawSubPath();
+        */
     };
 
     //激活该节点播放动画
