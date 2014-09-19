@@ -1,12 +1,14 @@
 /* 播放节点 */
 define(['jquery','Snap'], function ($ , S , FlowParser) {
-    function PlayNode(snapEle,rootSnapEle) {
-        this.rootSnapEle=rootSnapEle;
-        this.snapEle = snapEle;//snap svg元素
+    function PlayNode(snapEle,groupSnapEle,rootSnapEle) {
+        this.rootSnapEle=S(rootSnapEle);
+        this.snapEle = S(snapEle);//snap svg元素
+        this.group=S(groupSnapEle);
         this.nextNodes = [];//继任节点集合
         this.prevNodes=[];//父亲节点集合
         this.isStart = false;//是否是开始节点
         this.isRoad = false;//是否是路径
+        this.type=null;
         this.cx=null;//中心点x坐标，如果节点不是路径，需要设置此值
         this.cy=null;//中心的y坐标，如果节点不是路径，需要设置此值
         this.r=null;
@@ -55,7 +57,7 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
             var originStrokeWidth= playNode.snapEle.attr("strokeWidth");
             //var newStrokeWidth=parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2));
             var subPath=Snap.path.getSubpath(playNode.pathStr,0,drawPathLength);
-            playNode.lastWrapLinePathSnap=lastDrawPathSnap=playNode.rootSnapEle.path(subPath).attr({strokeWidth:originStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
+            playNode.lastWrapLinePathSnap=lastDrawPathSnap=playNode.group.path(subPath).attr({strokeWidth:originStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
 
             drawPathLength+=pathIncStep;
             playNode.wrapLength=drawPathLength;
@@ -73,6 +75,7 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
 
     //激活该节点播放动画
     PlayNode.prototype.activate = function (timeForAni) {
+        console.log(this);
         //准备path string
         if(!(this.pathStr)){
             var type=this.snapEle.type;
@@ -115,7 +118,7 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
             _genLineFill(this,timeForAni);
 
             if(this.cx!=null&&this.cy!=null)
-                this.radialIntervalId= _genRadial(this.rootSnapEle,this.cx,this.cy,this.r);
+                this.radialIntervalId= _genRadial(this.group,this.cx,this.cy,this.r);
 
         }
     };

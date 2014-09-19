@@ -11,6 +11,9 @@ requirejs.config({
 });
 
 require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
+
+
+
     var s;
     function handleFileSelect() {
         var file = this.files[0]; // FileList object
@@ -21,7 +24,8 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
             $("#divCanvas").html(ret);
 
             s = Snap("#divCanvas > svg");
-            var af = new ActiveFlow(s);
+            console.log($("#divCanvas > svg"));
+            var af = new ActiveFlow($("#divCanvas > svg").get(0));
             af.init();
         };
     }
@@ -41,11 +45,11 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
             stroke:"red"
         });
         */
-        var af1=new ActiveFlow(sn);
-        af1.init();
+        //var af1=new ActiveFlow(sn);
+        //af1.init();
     }
 
 
-    $(sandonTest);
+    $(pageInit);
 });
 

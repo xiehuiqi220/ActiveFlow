@@ -6,13 +6,15 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
      * @param {string} ele - snap元素，svg根元素
      */
     function ActiveFlow(rootSnapEle) {
-        //this.parser = new FlowParser(rootSnapEle);
+        //console.log(rootSnapEle);
+        this.startNode = FlowParser(rootSnapEle);
 
         //for debug
         //var testNode1=new PlayNode(rootSnapEle.circle(150,150,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
         //var testNode2=new PlayNode(rootSnapEle.path("M150 175 L150 275").attr({stroke:"blue"}),rootSnapEle);
         //var testNode3=new PlayNode(rootSnapEle.circle(150,300,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
 
+        /*
         var testNode1=new PlayNode(rootSnapEle.rect(125,150,50,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
         var testNode2=new PlayNode(rootSnapEle.path("M150 175 L150 275").attr({stroke:"blue",strokeWidth:2}),rootSnapEle);
         var testNode3=new PlayNode(rootSnapEle.path("M125 275 L175 275 L175 300 L125 300 z").attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
@@ -30,13 +32,15 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         testNode3.x=150;
         testNode3.y=300;
         testNode3.prevNodes.push(testNode2);
+        */
 
         //this.parser.parse();
-        //var startNode = this.parser.startPlayNode;
+        var startNode = this.startNode;
+        console.log(startNode);
         //var allNodes = this.parser.allPlayNodes;
-        var startNode = testNode1;
-        var allNodes = [testNode1,testNode2,testNode3];
-        this.player = new FlowPlayer(startNode , rootSnapEle);
+        //var startNode = testNode1;
+        //var allNodes = [testNode1,testNode2,testNode3];
+        this.player = new FlowPlayer(startNode , Snap(rootSnapEle));
     }
 
     ActiveFlow.prototype.init=function(){
