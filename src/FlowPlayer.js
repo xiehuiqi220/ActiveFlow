@@ -52,24 +52,27 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         else
             timeForAni=4000;
         //console.log(timeForAni);
-        this.currentPlayIntervalId= this.currentPlayNode.activate(timeForAni);
 
-        if(0==this.currentPlayNode.nextNodes.length){
-            this.queue.push(this.currentPlayNode);
-            this.currentPlayNode=null;
-        }else{
-            this.queue.push(this.currentPlayNode);
-            this.currentPlayNode=this.currentPlayNode.nextNodes[0];
-
-        }
-
+        this.queue.push(this.currentPlayNode);
         var obj=this;
         var playFn=this.play;
         var playNext=function(){
             //播放当前节点
             playFn.call(obj);
         };
-        setTimeout(playNext,timeForAni+1200);
+
+        this.currentPlayIntervalId= this.currentPlayNode.activate(timeForAni,function(){ 
+            if(0==this.currentPlayNode.nextNodes.length){
+                this.currentPlayNode=null;
+            }else{
+                this.currentPlayNode=this.currentPlayNode.nextNodes[0];
+            }
+            setTimeout(playNext,timeForAni+1200);
+        });
+
+        
+
+        
     };
 
     //回退到上一节点

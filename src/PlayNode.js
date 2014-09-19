@@ -20,7 +20,7 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
     }
 
     //动画：绘制震源效果
-    var _genRadial=function(snapRoot,x,y,r){
+    var _genRadial=function(snapRoot,x,y,r,timeForAni,callback){
         function genRadialCircle(){
 
             var circle1= snapRoot.circle(x,y,0);
@@ -34,11 +34,15 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
                 Snap(this).remove();
             });
         }
-        return setInterval(genRadialCircle,500);
+        var timer = setInterval(genRadialCircle,500);
+        setTimeout(function(){
+            clearInterval(timer);
+            callback();
+        },timeForAni);
     };
 
     //动画：绘制包裹线条效果
-    var _genLineFill=function(playNode,timeForAni){
+    var _genLineFill=function(playNode,timeForAni,callback){
         var timeStep=100;
         var numOfSteps=timeForAni/timeStep;
         var pathLength=Snap.path.getTotalLength(playNode.pathStr);
@@ -64,19 +68,17 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
             drawPathLength+=pathIncStep;
             playNode.wrapLength=drawPathLength;
             if(drawPathLength<=pathLength&&false==playNode.isStop)
+                drawPathLength = Math.min(drawPathLength,pathLength);
                 setTimeout(drawSubPath,timeStep);
-            else if(drawPathLength-pathIncStep<pathLength&&false==playNode.isStop){
-                playNode.wrapLength=drawPathLength=pathLength;
-                setTimeout(drawSubPath,timeStep);
+            else{
+                callback()
             }
         };
         drawSubPath();
     };
 
-
-
     //激活该节点播放动画
-    PlayNode.prototype.activate = function (timeForAni) {
+    PlayNode.prototype.activate = function (timeForAni,callback) {
         console.log(this);
         //准备path string
         if(!(this.pathStr)){
@@ -115,12 +117,23 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
         //播放动画
         this.isStop=false;
         if (this.type=="road") {
-            _genLineFill(this,timeForAni);
+            _genLineFill(this,timeForAni,callback);
         } else {
-            _genLineFill(this,timeForAni);
+            var dfdFill = $.Defferd();
+            var dfdRadial = $.Defferd();
+            _genLineFill(this,timeForAni,function(){
+                dfdFill.resolve();
+            });
 
-            if(this.cx!=null&&this.cy!=null)
-                this.radialIntervalId= _genRadial(this.group,this.cx,this.cy,this.r);
+            if(this.cx!=null&&this.cy!=null){
+                this.radialIntervalId= _genRadial(this.group,this.cx,this.cy,this.r,timeForAni,{
+                    dfdRadial.resolve();
+                });
+            }
+            else{
+                dfdRadial.resolve();
+            }
+            $.when(dfdFill,dfdRadial).done(function(){callback();});
 
         }
     };
