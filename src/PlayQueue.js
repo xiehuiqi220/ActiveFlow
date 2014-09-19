@@ -14,7 +14,7 @@ define(['jquery','Snap'], function ($) {
     };
 
     PlayQueue.prototype.pop = function(){
-        this.nodes.pop();
+        return this.nodes.pop();
     };
 
     PlayQueue.prototype.clear = function(){
