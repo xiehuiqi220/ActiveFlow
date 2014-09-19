@@ -9,6 +9,8 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         //console.log(rootSnapEle);
         var ret=FlowParser(rootSnapEle);
         this.startNode = ret.startNode;
+        this.allLines=ret.lines;
+        this.allNodes=ret.nodes;
 
         //for debug
         //var testNode1=new PlayNode(rootSnapEle.circle(150,150,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
@@ -46,7 +48,7 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
 
     ActiveFlow.prototype.init=function(){
         //this.player.play();
-
+        /*
         //绘制三角形
         var bbox=this.startNode.snapEle.getBBox();
         var cx=parseInt(bbox.cx);
@@ -68,6 +70,20 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
             bgCircle.remove();
             play.play();
         });
+        */
+
+        var ctx = jQuery("#divCanvas > svg");
+
+        /*
+        canvasElm.svg({'onLoad': function () {
+            console.log("haha");
+        }});
+        */
+
+        //ctx = canvasElm.svg('get');
+        //console.log(this.allLines);
+        //console.log(this.allNodes);
+        box2dMain(this.allLines,this.allNodes);
     }
 
     return ActiveFlow;
