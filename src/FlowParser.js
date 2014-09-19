@@ -59,7 +59,7 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
 
         $.each(lines,function(i,line){
             var
-            m = 8,
+            m = 5,
             starts = [],
             ends = [];
             starts.push({x:line.start.x,y:line.start.y});
@@ -71,6 +71,10 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             starts.push({x:line.start.x-m*2,y:line.start.y+m*2});
             starts.push({x:line.start.x+m*2,y:line.start.y-m*2});
             starts.push({x:line.start.x+m*2,y:line.start.y+m*2});
+            starts.push({x:line.start.x-m*3,y:line.start.y-m*3});
+            starts.push({x:line.start.x-m*3,y:line.start.y+m*3});
+            starts.push({x:line.start.x+m*3,y:line.start.y-m*3});
+            starts.push({x:line.start.x+m*3,y:line.start.y+m*3});
             ends.push({x:line.end.x,y:line.end.y});
             ends.push({x:line.end.x-m,y:line.end.y-m});
             ends.push({x:line.end.x-m,y:line.end.y+m});
@@ -80,6 +84,10 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             ends.push({x:line.end.x-m*2,y:line.end.y+m*2});
             ends.push({x:line.end.x+m*2,y:line.end.y-m*2});
             ends.push({x:line.end.x+m*2,y:line.end.y+m*2});
+            ends.push({x:line.end.x-m*3,y:line.end.y-m*3});
+            ends.push({x:line.end.x-m*3,y:line.end.y+m*3});
+            ends.push({x:line.end.x+m*3,y:line.end.y-m*3});
+            ends.push({x:line.end.x+m*3,y:line.end.y+m*3});
             $.each(nodes,function(j,node){
                 $.each(starts,function(n,point){
                     if((point.x>=node.start.x)&&(point.x<=node.end.x)&&(point.y>=node.start.y)&&(point.y<=node.end.y)){
