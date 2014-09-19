@@ -7,33 +7,8 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
      */
     function ActiveFlow(rootSnapEle) {
         //console.log(rootSnapEle);
-        var ret=FlowParser(rootSnapEle);
+        var ret = FlowParser(rootSnapEle);
         this.startNode = ret.startNode;
-
-        //for debug
-        //var testNode1=new PlayNode(rootSnapEle.circle(150,150,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
-        //var testNode2=new PlayNode(rootSnapEle.path("M150 175 L150 275").attr({stroke:"blue"}),rootSnapEle);
-        //var testNode3=new PlayNode(rootSnapEle.circle(150,300,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
-
-        /*
-        var testNode1=new PlayNode(rootSnapEle.rect(125,150,50,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
-        var testNode2=new PlayNode(rootSnapEle.path("M150 175 L150 275").attr({stroke:"blue",strokeWidth:2}),rootSnapEle);
-        var testNode3=new PlayNode(rootSnapEle.path("M125 275 L175 275 L175 300 L125 300 z").attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);
-
-
-        testNode1.isStart=true;
-        testNode1.nextNodes.push(testNode2);
-        testNode1.x=150;
-        testNode1.y=150;
-
-        testNode2.isRoad=true;
-        testNode2.nextNodes.push(testNode3);
-        testNode2.prevNodes.push(testNode1);
-
-        testNode3.x=150;
-        testNode3.y=300;
-        testNode3.prevNodes.push(testNode2);
-        */
 
         //this.parser.parse();
         var startNode = this.startNode;
@@ -41,11 +16,47 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         //var allNodes = this.parser.allPlayNodes;
         //var startNode = testNode1;
         //var allNodes = [testNode1,testNode2,testNode3];
-        this.player = new FlowPlayer(startNode , Snap(rootSnapEle));
+        this.player = new FlowPlayer(startNode, Snap(rootSnapEle));
+        var me = this;
+        $(document).on("keydown", function (evt) {
+            if (evt.keyCode == 37 || evt.keyCode == 38) {//左、上
+                me.player.back();
+            } else if (evt.keyCode == 39 || evt.keyCode == 0) {//右、下
+                if(me.playButton) {
+                    me.start();
+                }else {
+                    me.player.start();
+                }
+            }
+        })
     }
 
-    ActiveFlow.prototype.init=function(){
+    ActiveFlow.prototype.start = function () {
+        this.playButton.remove();
         this.player.play();
+    };
+
+    ActiveFlow.prototype.init = function () {
+        //绘制三角形
+        var bbox = this.startNode.snapEle.getBBox();
+        var cx = parseInt(bbox.cx);
+        var cy = parseInt(bbox.cy);
+        var pathStr = Snap.format("M{x1} {y1} L{x2} {y2} L{x3} {y3}", {
+            x1: cx - 3,
+            y1: cy - 6,
+            x2: cx + 7,
+            y2: cy,
+            x3: cx - 3,
+            y3: cy + 6
+        });
+
+        var bgCircle = this.startNode.group.circle(cx, cy, 12).attr({fill: "#000"});
+        var playBtn = this.startNode.group.path(pathStr).attr({fill: "#ccc"});
+        this.playButton = this.startNode.group.g(bgCircle, playBtn);
+        var me = this;
+        this.playButton.click(function () {
+            me.start();
+        });
     };
 
     return ActiveFlow;

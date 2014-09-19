@@ -6,7 +6,8 @@ requirejs.config({
         FlowPlayer: ["../src/FlowPlayer"],
         PlayQueue: ["../src/PlayQueue"],
         PlayNode: ["../src/PlayNode"],
-        FlowParser: ["../src/FlowParser"]
+        FlowParser: ["../src/FlowParser"],
+        TTS: ["../src/TTS"]
     }
 });
 

@@ -59,27 +59,23 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
 
         $.each(lines,function(i,line){
             var
-            m = 8,
+            m = 3,
             starts = [],
             ends = [];
             starts.push({x:line.start.x,y:line.start.y});
-            starts.push({x:line.start.x-m,y:line.start.y-m});
-            starts.push({x:line.start.x-m,y:line.start.y+m});
-            starts.push({x:line.start.x+m,y:line.start.y-m});
-            starts.push({x:line.start.x+m,y:line.start.y+m});
-            starts.push({x:line.start.x-m*2,y:line.start.y-m*2});
-            starts.push({x:line.start.x-m*2,y:line.start.y+m*2});
-            starts.push({x:line.start.x+m*2,y:line.start.y-m*2});
-            starts.push({x:line.start.x+m*2,y:line.start.y+m*2});
             ends.push({x:line.end.x,y:line.end.y});
-            ends.push({x:line.end.x-m,y:line.end.y-m});
-            ends.push({x:line.end.x-m,y:line.end.y+m});
-            ends.push({x:line.end.x+m,y:line.end.y-m});
-            ends.push({x:line.end.x+m,y:line.end.y+m});
-            ends.push({x:line.end.x-m*2,y:line.end.y-m*2});
-            ends.push({x:line.end.x-m*2,y:line.end.y+m*2});
-            ends.push({x:line.end.x+m*2,y:line.end.y-m*2});
-            ends.push({x:line.end.x+m*2,y:line.end.y+m*2});
+
+            for(var i = 1;i<5;i++){
+                starts.push({x:line.start.x-m*i,y:line.start.y-m*i});
+                starts.push({x:line.start.x-m*i,y:line.start.y+m*i});
+                starts.push({x:line.start.x+m*i,y:line.start.y-m*i});
+                starts.push({x:line.start.x+m*i,y:line.start.y+m*i});
+                ends.push({x:line.end.x-m*i,y:line.end.y-m*i});
+                ends.push({x:line.end.x-m*i,y:line.end.y+m*i});
+                ends.push({x:line.end.x+m*i,y:line.end.y-m*i});
+                ends.push({x:line.end.x+m*i,y:line.end.y+m*i});
+            }
+
             $.each(nodes,function(j,node){
                 $.each(starts,function(n,point){
                     if((point.x>=node.start.x)&&(point.x<=node.end.x)&&(point.y>=node.start.y)&&(point.y<=node.end.y)){
@@ -112,11 +108,11 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
         
         var startNode;
         $.each(nodes, function(i,node){
-            if(node.playNode.prevNodes.length ===0 ){
+            if((node.playNode.prevNodes.length===0)&&(node.playNode.nextNodes.length>0)){
                 node.playNode.type = 'start';
                 startNode = node;
             }
-            else if(node.playNode.nextNodes.length ===0 ){
+            else if((node.playNode.nextNodes.length===0)&&(node.playNode.prevNodes.length>0)){
                 node.playNode.type = 'end';
             }
             else if(node.playNode.nextNodes.length>=2){
