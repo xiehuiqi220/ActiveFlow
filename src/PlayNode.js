@@ -6,7 +6,6 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
         this.group = S(groupSnapEle);
         this.nextNodes = [];//继任节点集合
         this.prevNodes = [];//父亲节点集合
-        this.isRoad = false;//是否是路径
         this.type = null;
         this.cx = null;//中心点x坐标，如果节点不是路径，需要设置此值
         this.cy = null;//中心的y坐标，如果节点不是路径，需要设置此值
@@ -78,6 +77,11 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
     //激活该节点播放动画
     PlayNode.prototype.isStart = function(){
         return this.type == "start";
+    };
+
+    //激活该节点播放动画
+    PlayNode.prototype.isRoad = function(){
+        return this.type == "road";
     };
 
     //激活该节点播放动画
@@ -153,8 +157,8 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
 
     };
     PlayNode.prototype.reset = function () {
-        if (this.lastWrapLinePathSnap) {
-            this.lastWrapLinePathSnap.remove();
+        if (this.lastDrawPathSnap) {
+            this.lastDrawPathSnap.remove();
             this.lastWrapLinePathSnap = null;
         }
         if (this.radialIntervalId) {

@@ -21,7 +21,7 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         $(document).on("keydown", function (evt) {
             if (evt.keyCode == 37 || evt.keyCode == 38) {//左、上
                 me.player.back();
-            } else if (evt.keyCode == 39 || evt.keyCode == 0) {//右、下
+            } else if (evt.keyCode == 39 || evt.keyCode == 40 || evt.keyCode == 13) {//右、下
                 if(me.playButton) {
                     me.start();
                 }else {

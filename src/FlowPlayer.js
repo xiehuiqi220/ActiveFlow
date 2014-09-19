@@ -25,7 +25,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
     };
 
     //单步播放当前节点
-    FlowPlayer.prototype.play = function () {
+    FlowPlayer.prototype.play = function (fnComplete) {
         var prevOne = this.queue.lastEle();
         if (prevOne) {
             prevOne.stop();
@@ -50,21 +50,70 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                 obj.currentPlayNode = null;
             } else {
                 if (obj.currentPlayNode.nextNodes.length === 1) {
-                    obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
+                    if(obj.currentPlayNode.isRoad()){
+                        obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
+                        obj.play();
+                    }else {
+                        obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
+                    }
                 }
                 else {
-                    var n = prompt("please enter number");
-                    obj.currentPlayNode = obj.currentPlayNode.nextNodes[n - 1];
+                    //var n = prompt("please enter number");
+                    var index = 0;
+                    var btnList = [];
+                    obj.currentPlayNode.nextNodes.forEach(function(pl){
+                        index++;
+                        var bbox = pl.snapEle.getBBox();
+                        var circle = pl.group.circle(bbox.cx,bbox.cy,10);
+                        var text = pl.group.text(bbox.cx - 2,bbox.cy + 5,index);
+                        var btn =  pl.group.g(circle,text);
+                        btnList.push(btn);
+                        circle.attr({
+                            stroke:"#ccc",
+                            fill:"white",
+                            cursor:"pointer"
+                        });
+                        text.attr({
+                            stroke:"#000",
+                            "stroke-width":"1",
+                            cursor:"pointer"
+                        });
+                        circle.animate({
+                            fill:"orange"
+                        },4000,mina.easein);
+                        btn.click(function(){
+                            obj.currentPlayNode = pl;
+                            obj.play();
+                            btnList.forEach(function(el) {
+                                el.remove();
+                            });
+                        });
+                    });
                 }
+            }
+
+            //完成的回调函数
+            if(typeof fnComplete == "function"){
+                fnComplete();
             }
         });
     };
 
     //回退到上一节点
     FlowPlayer.prototype.back = function () {
+        if(this.queue.lastEle().isStart()){
+            var node = this.queue.pop();
+            node.reset();
+            this.currentPlayNode = node;
+            this.startPlayNode = node;
+            return false;
+        }
         var node = this.queue.pop();
         node.reset();
-        //this.currentPlayNode = this.queue.lastEle();
+        this.currentPlayNode = node;
+        if(this.queue.lastEle().isRoad()){
+            this.back();
+        }
     };
 
     //暂停
