@@ -25,14 +25,14 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
                 if(me.playButton) {
                     me.start();
                 }else {
-                    me.player.start();
+                    me.player.play();
                 }
             }
         })
     }
 
     ActiveFlow.prototype.start = function () {
-        this.playButton.remove();
+        this.playButton && this.playButton.remove();
         this.player.play();
     };
 

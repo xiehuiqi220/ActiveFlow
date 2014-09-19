@@ -30,9 +30,11 @@ define(['jquery','Snap'], function ($) {
         else
             return null;
     };
+
     PlayQueue.prototype.length = function () {
         return this.nodes.length;
     };
+
     PlayQueue.prototype.get = function (index) {
         if (index < this.nodes.length && length >= 0)
             return this.nodes[index];

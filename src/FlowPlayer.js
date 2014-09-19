@@ -62,13 +62,9 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
 
     //回退到上一节点
     FlowPlayer.prototype.back = function () {
-        //开始节点无法再回退
-        if(this.currentPlayNode.isStart()){
-            return false;
-        }
-        this.currentPlayNode = this.queue.pop();
-        this.currentPlayNode.reset();
-        this.currentPlayNode = this.queue.lastEle();
+        var node = this.queue.pop();
+        node.reset();
+        //this.currentPlayNode = this.queue.lastEle();
     };
 
     //暂停

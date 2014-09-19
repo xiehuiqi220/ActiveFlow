@@ -67,42 +67,6 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
 
         render();
 
-        
-        /*
-        var timeStep=100;
-        var numOfSteps=timeForAni/timeStep;
-        var pathLength=Snap.path.getTotalLength(playNode.pathStr);
-        var pathIncStep=pathLength/numOfSteps;
-
-        var drawPathLength = playNode.wrapLength;
-
-        var lastDrawPathSnap = null;
-
-        //var originStroke=playNode.snapEle.attr("stroke");
-
-        var drawSubPath = function () {
-            if (lastDrawPathSnap)
-                lastDrawPathSnap.remove();
-
-            var originStrokeWidth= playNode.snapEle.attr("strokeWidth");
-            var newStrokeWidth=parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2));
-            if(newStrokeWidth<1)
-                newStrokeWidth=1;
-            var subPath=Snap.path.getSubpath(playNode.pathStr,0,drawPathLength);
-            playNode.lastWrapLinePathSnap=lastDrawPathSnap=playNode.group.path(subPath).attr({strokeWidth:newStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
-
-            drawPathLength+=pathIncStep;
-            playNode.wrapLength=drawPathLength;
-            if(drawPathLength<=pathLength&&false==playNode.isStop){
-                drawPathLength = Math.min(drawPathLength,pathLength);
-                setTimeout(drawSubPath,timeStep);
-            }
-            else{
-                callback()
-            }
-        };
-        drawSubPath();
-        */
     };
 
     //激活该节点播放动画
