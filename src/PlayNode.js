@@ -24,7 +24,7 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
             var circle1 = snapRoot.circle(x, y, 0);
             circle1.attr({
                 fill: "none",
-                stroke: "red",
+                stroke: "#FF7300",
                 strokeWidth: 2
             });
 
@@ -45,19 +45,25 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
         startTime = Date.now(),
         pathLength=Snap.path.getTotalLength(playNode.pathStr),
         originStrokeWidth= playNode.snapEle.attr("strokeWidth"),
-        newStrokeWidth=Math.max(parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2)),1),
-        lastDrawPathSnap,
+        newStrokeWidth=Math.max(parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2)),1);
 
-        render = function(){
+        if(playNode.lastDrawPathSnap){
+            playNode.lastDrawPathSnap.attr({fill:'none'});
+        }
+
+        var render = function(){
             var
             time = Date.now()-startTime,
             drawPathLength = Math.min(pathLength,Math.ceil(pathLength*time/timeForAni)),
             subPath=Snap.path.getSubpath(playNode.pathStr,0,drawPathLength);
-            if(lastDrawPathSnap){
-                lastDrawPathSnap.remove();
+            if(playNode.lastDrawPathSnap){
+                playNode.lastDrawPathSnap.remove();
             }
-            lastDrawPathSnap = playNode.group.path(subPath).attr({strokeWidth:newStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
+            playNode.lastDrawPathSnap = playNode.group.path(subPath).attr({strokeWidth:newStrokeWidth,stroke:"#FF7300",fill:"none",strokeOpacity:1});
             if(time>timeForAni){
+                if(playNode.type!=='road'){
+                    playNode.lastDrawPathSnap.attr({fill:'rgba(255,115,0,.4)'});
+                }
                 callback()
             }
             else{
