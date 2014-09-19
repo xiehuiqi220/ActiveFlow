@@ -41,7 +41,7 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
 
     ActiveFlow.prototype.init=function(){
         this.player.play();
-    }
+    };
 
     return ActiveFlow;
 });
