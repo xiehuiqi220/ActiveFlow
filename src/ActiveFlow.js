@@ -7,7 +7,8 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
      */
     function ActiveFlow(rootSnapEle) {
         //console.log(rootSnapEle);
-        this.startNode = FlowParser(rootSnapEle);
+        var ret=FlowParser(rootSnapEle);
+        this.startNode = ret.startNode;
 
         //for debug
         //var testNode1=new PlayNode(rootSnapEle.circle(150,150,25).attr({fill:"none",strokeWidth:2,stroke:"blue"}),rootSnapEle);

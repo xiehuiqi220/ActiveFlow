@@ -55,9 +55,11 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
                 lastDrawPathSnap.remove();
 
             var originStrokeWidth= playNode.snapEle.attr("strokeWidth");
-            //var newStrokeWidth=parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2));
+            var newStrokeWidth=parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2));
+            if(newStrokeWidth<1)
+                newStrokeWidth=1;
             var subPath=Snap.path.getSubpath(playNode.pathStr,0,drawPathLength);
-            playNode.lastWrapLinePathSnap=lastDrawPathSnap=playNode.group.path(subPath).attr({strokeWidth:originStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
+            playNode.lastWrapLinePathSnap=lastDrawPathSnap=playNode.group.path(subPath).attr({strokeWidth:newStrokeWidth,stroke:"red",fill:"none",strokeOpacity:1});
 
             drawPathLength+=pathIncStep;
             playNode.wrapLength=drawPathLength;
@@ -112,7 +114,7 @@ define(['jquery','Snap'], function ($ , S , FlowParser) {
 
         //播放动画
         this.isStop=false;
-        if (this.isRoad) {
+        if (this.type=="road") {
             _genLineFill(this,timeForAni);
         } else {
             _genLineFill(this,timeForAni);
