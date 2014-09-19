@@ -45,7 +45,29 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
     }
 
     ActiveFlow.prototype.init=function(){
-        this.player.play();
+        //this.player.play();
+
+        //绘制三角形
+        var bbox=this.startNode.snapEle.getBBox();
+        var cx=parseInt(bbox.cx);
+        var cy=parseInt(bbox.cy);
+        var pathStr=Snap.format("M{x1} {y1} L{x2} {y2} L{x3} {y3}",{
+            x1:cx-3,
+            y1:cy-6,
+            x2:cx+7,
+            y2:cy,
+            x3:cx-3,
+            y3:cy+6
+        });
+
+        var bgCircle=this.startNode.group.circle(cx,cy,12).attr({fill:"green"});
+        var playBtn=this.startNode.group.path(pathStr).attr({fill:"blue"});
+        var play=this.player;
+        bgCircle.click(function(){
+            playBtn.remove();
+            bgCircle.remove();
+            play.play();
+        });
     }
 
     return ActiveFlow;
