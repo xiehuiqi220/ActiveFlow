@@ -52,10 +52,17 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
 
         var bgCircle = this.startNode.group.circle(cx, cy, 12).attr({fill: "#000"});
         var playBtn = this.startNode.group.path(pathStr).attr({fill: "#ccc"});
-        this.playButton = this.startNode.group.g(bgCircle, playBtn);
+        this.playButton = this.startNode.group.g(bgCircle, playBtn).attr({cursor:'pointer'});
         var me = this;
         this.playButton.click(function () {
             me.start();
+        });
+        this.playButton.hover(function(){
+            bgCircle.attr({fill:'#FF7300'});
+            playBtn.attr({fill:'#FFF'});
+        },function(){
+            bgCircle.attr({fill:'#000'});
+            playBtn.attr({fill:'#CCC'});
         });
     };
 
