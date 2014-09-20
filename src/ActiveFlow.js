@@ -42,6 +42,10 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         }
     }
 
+    ActiveFlow.prototype.setSpeed = function(speed){
+        this.player.speed = parseInt(speed);
+    }
+
     ActiveFlow.prototype.auto = function(enable){
         this.player.isAuto = enable;
     }

@@ -14,6 +14,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         this.currentPlayIntervalId = null;
         this.queue = new PlayQueue();
         this.isAuto = false;
+        this.speed = 3;
         this.useTTS = true;
         _init.call(this);
     }
@@ -55,7 +56,15 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         else {
             timeForAni = 4000;
         }
-        //console.log(timeForAni);
+        switch(this.speed){
+            case 3:
+            timeForAni = timeForAni/2;
+            break;
+            case 1:
+            timeForAni = timeForAni*2;
+            break;
+        }
+        console.log(timeForAni);
         this.queue.push(this.currentPlayNode);
         var obj = this;
 
