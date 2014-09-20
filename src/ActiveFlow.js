@@ -47,6 +47,8 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
     };
 
     ActiveFlow.prototype.init = function () {
+        //box2dMain(this.allLines,this.allNodes);
+        //return;
         //绘制三角形
         var bbox = this.startNode.snapEle.getBBox();
         var cx = parseInt(bbox.cx);
