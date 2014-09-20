@@ -39,33 +39,37 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
     };
 
     //动画：绘制包裹线条效果
-    var _genLineFill=function(playNode,timeForAni,callback){
+    var _genLineFill=function(playNode,timeForAni,callback) {
         var
-        startTime = Date.now(),
-        pathLength=Snap.path.getTotalLength(playNode.pathStr),
-        originStrokeWidth= playNode.snapEle.attr("strokeWidth"),
-        newStrokeWidth=Math.max(parseInt(originStrokeWidth.substring(0,originStrokeWidth.length-2)),1);
+            startTime = Date.now(),
+            pathLength = Snap.path.getTotalLength(playNode.pathStr),
+            originStrokeWidth = playNode.snapEle.attr("strokeWidth"),
+            newStrokeWidth = Math.max(parseInt(originStrokeWidth.substring(0, originStrokeWidth.length - 2)), 1);
 
-        if(playNode.lastDrawPathSnap){
-            playNode.lastDrawPathSnap.attr({fill:'none'});
+        if (playNode.lastDrawPathSnap) {
+            playNode.lastDrawPathSnap.attr({fill: 'none'});
         }
 
-        var render = function(){
+        var render = function () {
             var
-            time = Date.now()-startTime,
-            drawPathLength = Math.min(pathLength,Math.ceil(pathLength*time/timeForAni)),
-            subPath=Snap.path.getSubpath(playNode.pathStr,0,drawPathLength);
-            if(playNode.lastDrawPathSnap){
+                time = Date.now() - startTime,
+                drawPathLength = Math.min(pathLength, Math.ceil(pathLength * time / timeForAni)),
+                subPath = Snap.path.getSubpath(playNode.pathStr, 0, drawPathLength);
+            if (playNode.lastDrawPathSnap) {
                 playNode.lastDrawPathSnap.remove();
             }
-            playNode.lastDrawPathSnap = playNode.group.path(subPath).attr({strokeWidth:newStrokeWidth,stroke:"#FF7300",fill:"none",strokeOpacity:1});
-            if(time>timeForAni){
-                if(playNode.type!=='road'){
-                    playNode.lastDrawPathSnap.attr({fill:'rgba(255,115,0,.4)'});
+            playNode.lastDrawPathSnap = playNode.group.path(subPath).attr({
+                strokeWidth: newStrokeWidth,
+                "class":"active-flow-border active-flow-path-marker"
+                }
+            );
+            if (time > timeForAni) {
+                if (playNode.type !== 'road') {
+                    playNode.lastDrawPathSnap.attr({fill: 'rgba(255,115,0,.4)'});
                 }
                 callback()
             }
-            else{
+            else {
                 requestAnimationFrame(render);
             }
         };

@@ -7,6 +7,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
      * @param {SnapElement} rootSnapEle - 根snapSvg对象
      */
     function FlowPlayer(startPlayNode, rootSnapEle) {
+        this.rootSnapEle = rootSnapEle;
         this.startPlayNode = startPlayNode;
         //一开始即将播放的节点就是开始节点
         this.currentPlayNode = this.startPlayNode;
@@ -22,6 +23,18 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         //this.startPlayNode.activate();
         //根元素效果
         //this.rootSnapEle.fn();
+        var cssString = ".active-flow-border{" +
+            "stroke:#FF7300;" +
+            "fill:none;" +//防止文本遮住下面的元素
+            "stroke-opacity:1;" +
+            "}";
+        cssString += ".active-flow-path-marker{" +
+            "marker-end:url(#active-flow-path-marker);" +
+        "}";
+
+        var markerString = "<marker id='active-flow-path-marker' overflow='visible' orient='auto'><circle cx='0' cy='0' r='2' fill='#ff7300'></circle></marker>";
+        $("style",this.rootSnapEle.node)[0].innerHTML += cssString;
+        $("defs#Markers",this.rootSnapEle.node)[0].innerHTML += markerString;
     };
 
     //单步播放当前节点
@@ -46,14 +59,17 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         var obj = this;
 
         this.currentPlayIntervalId = this.currentPlayNode.activate(timeForAni, function () {
+            //删除原型标记
+            obj.currentPlayNode.lastDrawPathSnap.removeClass("active-flow-path-marker");
+            //判断下一个继任者
             if (0 == obj.currentPlayNode.nextNodes.length) {
                 obj.currentPlayNode = null;
             } else {
                 if (obj.currentPlayNode.nextNodes.length === 1) {
-                    if(obj.currentPlayNode.isRoad()){
+                    if (obj.currentPlayNode.isRoad()) {
                         obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
                         obj.play();
-                    }else {
+                    } else {
                         obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
                     }
                 }
@@ -61,30 +77,30 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                     //var n = prompt("please enter number");
                     var index = 0;
                     var btnList = [];
-                    obj.currentPlayNode.nextNodes.forEach(function(pl){
+                    obj.currentPlayNode.nextNodes.forEach(function (pl) {
                         index++;
                         var bbox = pl.snapEle.getBBox();
-                        var circle = pl.group.circle(bbox.cx,bbox.cy,10);
-                        var text = pl.group.text(bbox.cx - 2,bbox.cy + 5,index);
-                        var btn =  pl.group.g(circle,text);
+                        var circle = pl.group.circle(bbox.cx, bbox.cy, 10);
+                        var text = pl.group.text(bbox.cx - 2, bbox.cy + 5, index);
+                        var btn = pl.group.g(circle, text);
                         btnList.push(btn);
                         circle.attr({
-                            stroke:"#ccc",
-                            fill:"white",
-                            cursor:"pointer"
+                            stroke: "#ccc",
+                            fill: "white",
+                            cursor: "pointer"
                         });
                         text.attr({
-                            stroke:"#000",
-                            "stroke-width":"1",
-                            cursor:"pointer"
+                            stroke: "#000",
+                            "stroke-width": "1",
+                            cursor: "pointer"
                         });
                         circle.animate({
-                            fill:"orange"
-                        },4000,mina.easein);
-                        btn.click(function(){
+                            fill: "orange"
+                        }, 4000, mina.easein);
+                        btn.click(function () {
                             obj.currentPlayNode = pl;
                             obj.play();
-                            btnList.forEach(function(el) {
+                            btnList.forEach(function (el) {
                                 el.remove();
                             });
                         });
@@ -93,7 +109,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
             }
 
             //完成的回调函数
-            if(typeof fnComplete == "function"){
+            if (typeof fnComplete == "function") {
                 fnComplete();
             }
         });
@@ -101,7 +117,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
 
     //回退到上一节点
     FlowPlayer.prototype.back = function () {
-        if(this.queue.lastEle().isStart()){
+        if (this.queue.lastEle().isStart()) {
             var node = this.queue.pop();
             node.reset();
             this.currentPlayNode = node;
@@ -111,7 +127,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         var node = this.queue.pop();
         node.reset();
         this.currentPlayNode = node;
-        if(this.queue.lastEle().isRoad()){
+        if (this.queue.lastEle().isRoad()) {
             this.back();
         }
     };
