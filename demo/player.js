@@ -75,6 +75,13 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
                     $(this).removeClass('on').addClass('off');
                 }
             }).removeClass('off').addClass('on');
+
+            toolbar.find('.type').on('click',function(){
+                var license = prompt('Enter license');
+                if(license){
+                    alert('Your license is invalid');
+                }
+            });
         }
 
     });
