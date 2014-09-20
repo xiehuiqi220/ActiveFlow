@@ -10,7 +10,8 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         var ret = FlowParser(rootSnapEle);
         this.startNode = ret.startNode;
         this.allLines = ret.lines;
-        this.allNodes = ret.nodes;
+        this.canPlayNodes = ret.nodes;
+        this.allNodes=ret.allNodes;
 
         //this.parser.parse();
         var startNode = this.startNode;
@@ -36,6 +37,10 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
     ActiveFlow.prototype.start = function () {
         this.playButton && this.playButton.remove();
         this.player.play();
+    };
+
+    ActiveFlow.prototype.egg=function(){
+        box2dMain(this.allLines,this.allNodes);
     };
 
     ActiveFlow.prototype.init = function () {

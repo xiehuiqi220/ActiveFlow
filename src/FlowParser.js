@@ -140,7 +140,8 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
         return {
             nodes:nodes.filter(function(obj){return (obj.playNode.type!=='other');}),
             lines:lines.filter(function(obj){return (obj.playNode.type!=='other');}),
-            startNode:startNode.playNode
+            startNode:startNode.playNode,
+            allNodes:nodes
         };
     };
 });

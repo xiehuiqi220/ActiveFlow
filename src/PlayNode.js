@@ -4,7 +4,6 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
         this.rootSnapEle = S(rootSnapEle);
         this.snapEle = S(snapEle);//snap svg元素
         this.group=S(groupSnapEle);
-        this.rawGroup=groupSnapEle;
         this.nextNodes = [];//继任节点集合
         this.prevNodes = [];//父亲节点集合
         this.type = null;
