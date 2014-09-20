@@ -90,9 +90,10 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
     };
 
     //激活该节点播放动画
-    PlayNode.prototype.activate = function (timeForAni,callback) {
-        console.log(this);
-        TTS.play(this.text);
+    PlayNode.prototype.activate = function (timeForAni,useTTS,callback) {
+        if(useTTS){
+            TTS.play(this.text);
+        }
         //准备path string
         if (!(this.pathStr)) {
             var type = this.snapEle.type;
