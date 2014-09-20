@@ -76,14 +76,14 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                 else {
                     //var n = prompt("please enter number");
                     var index = 0;
-                    var btnList = [];
+                    obj.currentPlayNode.btnList = [];
                     obj.currentPlayNode.nextNodes.forEach(function (pl) {
                         index++;
                         var bbox = pl.snapEle.getBBox();
                         var circle = pl.group.circle(bbox.cx, bbox.cy, 10);
                         var text = pl.group.text(bbox.cx - 2, bbox.cy + 5, index);
                         var btn = pl.group.g(circle, text);
-                        btnList.push(btn);
+                        obj.currentPlayNode.btnList.push(btn);
                         circle.attr({
                             stroke: "#ccc",
                             fill: "white",
@@ -98,11 +98,11 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                             fill: "orange"
                         }, 4000, mina.easein);
                         btn.click(function () {
-                            obj.currentPlayNode = pl;
-                            obj.play();
-                            btnList.forEach(function (el) {
+                            obj.currentPlayNode.btnList.forEach(function (el) {
                                 el.remove();
                             });
+                            obj.currentPlayNode = pl;
+                            obj.play();
                         });
                     });
                 }

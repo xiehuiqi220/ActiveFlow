@@ -169,6 +169,11 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
             clearInterval(this.radialIntervalId);
             this.radialIntervalId = null;
         }
+        if(this.btnList && this.btnList.length > 0){
+            this.btnList.forEach(function (el) {
+                el.remove();
+            });
+        }
         this.isStop = true;
         this.wrapLength = 0;
     };
