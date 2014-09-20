@@ -22,15 +22,23 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         var me = this;
         $(document).on("keydown", function (evt) {
             if (evt.keyCode == 37 || evt.keyCode == 38) {//左、上
-                me.player.back();
+                me.prev();
             } else if (evt.keyCode == 39 || evt.keyCode == 40 || evt.keyCode == 13) {//右、下
-                if (me.playButton) {
-                    me.start();
-                } else {
-                    me.player.play();
-                }
+                me.next();
             }
         })
+    }
+
+    ActiveFlow.prototype.prev = function(){
+        this.player.back();
+    }
+
+    ActiveFlow.prototype.next = function(){
+        if (this.playButton) {
+            this.start();
+        } else {
+            this.player.play();
+        }
     }
 
     ActiveFlow.prototype.start = function () {
