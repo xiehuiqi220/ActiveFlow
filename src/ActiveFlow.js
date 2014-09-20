@@ -9,6 +9,8 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         //console.log(rootSnapEle);
         var ret = FlowParser(rootSnapEle);
         this.startNode = ret.startNode;
+        this.allLines = ret.lines;
+        this.allNodes = ret.nodes;
 
         //this.parser.parse();
         var startNode = this.startNode;
@@ -22,9 +24,9 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
             if (evt.keyCode == 37 || evt.keyCode == 38) {//左、上
                 me.player.back();
             } else if (evt.keyCode == 39 || evt.keyCode == 40 || evt.keyCode == 13) {//右、下
-                if(me.playButton) {
+                if (me.playButton) {
                     me.start();
-                }else {
+                } else {
                     me.player.play();
                 }
             }
@@ -52,19 +54,19 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
 
         var bgCircle = this.startNode.group.circle(cx, cy, 12).attr({fill: "#000"});
         var playBtn = this.startNode.group.path(pathStr).attr({fill: "#ccc"});
-        this.playButton = this.startNode.group.g(bgCircle, playBtn).attr({cursor:'pointer'});
+        this.playButton = this.startNode.group.g(bgCircle, playBtn).attr({cursor: 'pointer'});
         var me = this;
         this.playButton.click(function () {
             me.start();
         });
-        this.playButton.hover(function(){
-            bgCircle.attr({fill:'#FF7300'});
-            playBtn.attr({fill:'#FFF'});
-        },function(){
-            bgCircle.attr({fill:'#000'});
-            playBtn.attr({fill:'#CCC'});
+        this.playButton.hover(function () {
+            bgCircle.attr({fill: '#FF7300'});
+            playBtn.attr({fill: '#FFF'});
+        }, function () {
+            bgCircle.attr({fill: '#000'});
+            playBtn.attr({fill: '#CCC'});
         });
-    };
+    }
 
     return ActiveFlow;
 });
