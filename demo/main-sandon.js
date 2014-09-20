@@ -13,8 +13,6 @@ requirejs.config({
 
 require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
 
-
-
     var s;
     function handleFileSelect() {
         var file = this.files[0]; // FileList object

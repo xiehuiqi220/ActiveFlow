@@ -6,7 +6,7 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
      * @param {string} ele - snap元素，svg根元素
      */
     function ActiveFlow(rootSnapEle) {
-        //console.log(rootSnapEle);
+        this.rootSnapEle = rootSnapEle;
         var ret = FlowParser(rootSnapEle);
         this.startNode = ret.startNode;
         this.allLines = ret.lines;
@@ -68,7 +68,24 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
             bgCircle.attr({fill: '#000'});
             playBtn.attr({fill: '#CCC'});
         });
-    }
+
+        //可拖拽的
+        this.draggable();
+    };
+
+    ActiveFlow.prototype.draggable = function () {
+        var s = Snap("svg>g");
+        var that = s;
+
+        function onMove(dx, dy, x, y, evt) {
+            that.attr({
+                transform: "translate(" + dx + ", " + dy + ")"
+            });
+        }
+
+
+        s.drag(onMove);
+    };
 
     return ActiveFlow;
 });
