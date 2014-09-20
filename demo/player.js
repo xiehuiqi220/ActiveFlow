@@ -77,11 +77,16 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
             }).removeClass('off').addClass('on');
 
             toolbar.find('.type').on('click',function(){
-                var license = prompt('Enter license');
+                var license = prompt('Enter license','show me the money');
                 if(license){
                     alert('Your license is invalid');
+                    af.egg();
                 }
             });
+
+            toolbar.find('.speed input').on('change',function(){
+                af.setSpeed($(this).val());
+            }).trigger('change');
         }
 
     });
