@@ -13,7 +13,8 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         this.currentPlayNode = this.startPlayNode;
         this.currentPlayIntervalId = null;
         this.queue = new PlayQueue();
-
+        this.isAuto = false;
+        this.useTTS = true;
         _init.call(this);
     }
 
@@ -58,7 +59,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         this.queue.push(this.currentPlayNode);
         var obj = this;
 
-        this.currentPlayIntervalId = this.currentPlayNode.activate(timeForAni, function () {
+        this.currentPlayIntervalId = this.currentPlayNode.activate(timeForAni,this.useTTS, function () {
             //删除原型标记
             obj.currentPlayNode.lastDrawPathSnap.removeClass("active-flow-path-marker");
             //判断下一个继任者
@@ -66,7 +67,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                 obj.currentPlayNode = null;
             } else {
                 if (obj.currentPlayNode.nextNodes.length === 1) {
-                    if (obj.currentPlayNode.isRoad()) {
+                    if (obj.currentPlayNode.isRoad()||obj.isAuto) {
                         obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
                         obj.play();
                     } else {
