@@ -41,6 +41,14 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         }
     }
 
+    ActiveFlow.prototype.auto = function(enable){
+        this.player.isAuto = enable;
+    }
+
+    ActiveFlow.prototype.TTS = function(enable){
+        this.player.useTTS = enable;
+    }
+
     ActiveFlow.prototype.start = function () {
         this.playButton && this.playButton.remove();
         this.player.play();

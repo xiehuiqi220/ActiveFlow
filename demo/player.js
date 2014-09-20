@@ -17,6 +17,8 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
         var
         af
         inputFile = $('#file'),
+        isAuto = false,
+        useTTS = true,
         container = $("#divCanvas");
         $(window).on('resize',function(){
             container.height($(window).height());
@@ -53,6 +55,26 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
             toolbar.find('.play').on('click',function(){
                 af.start();
             });
+            toolbar.find('.auto .button').on('click',function(){
+                isAuto = !isAuto;
+                af.auto(isAuto);
+                if(isAuto){
+                    $(this).removeClass('off').addClass('on');
+                }
+                else{
+                    $(this).removeClass('on').addClass('off');
+                }
+            }).removeClass('on').addClass('off');
+            toolbar.find('.voice .button').on('click',function(){
+                useTTS = !useTTS;
+                af.TTS(useTTS);
+                if(useTTS){
+                    $(this).removeClass('off').addClass('on');
+                }
+                else{
+                    $(this).removeClass('on').addClass('off');
+                }
+            }).removeClass('off').addClass('on');
         }
 
     });
