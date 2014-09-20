@@ -81,7 +81,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                         index++;
                         var bbox = pl.snapEle.getBBox();
                         var circle = pl.group.circle(bbox.cx, bbox.cy, 10);
-                        var text = pl.group.text(bbox.cx - 2, bbox.cy + 5, index);
+                        var text = pl.group.text(bbox.cx - 3, bbox.cy + 5, index);
                         var btn = pl.group.g(circle, text);
                         obj.currentPlayNode.btnList.push(btn);
                         circle.attr({
