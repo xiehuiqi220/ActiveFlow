@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="GBK">
+    <title>XML</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="http://stuk.github.io/jszip/dist/jszip.js"></script>
+</head>
+<body>
+    <div class="input">
+        <input type="file" id="file" name="file" />
+    </div>
+    <div class="output"></div>
+    <script type="text/javascript">
+        (function($){
+            $.expr[":"].textNode = function(element){
+                var result = false;
+                $.each(element.childNodes, function(i, node){
+                    if((node.nodeType === 3) && ($.trim(node.nodeValue) !== '')){
+                        result = true;
+                        return false;
+                    }
+                });
+                return result;
+            };
+
+            var parseXML = function(text){
+                var parser=new DOMParser();
+                var xmlDoc=parser.parseFromString(text,'text/xml');
+                return xmlDoc;
+            };
+
+            $(function(){
+                if (window.FileReader || window.ArrayBuffer) {
+                    $('#file').on('change',function(e){
+                        if(e.target.files.length){
+                            var
+                            file = e.target.files[0],
+                            reader = new FileReader();
+                            reader.onload = function(e){
+                                try{
+                                    var zip = new JSZip(e.target.result);
+                                    var ContentTypes = parseXML(zip.file('[Content_Types].xml').asText());
+                                    var PartName = $('Override[ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"]', ContentTypes).eq(0).attr('PartName');
+                                    var wordDoc = parseXML(zip.file(PartName.replace(/^\//,'')).asText());
+                                    $(':textNode', wordDoc).each(function(i, node){
+                                        $('.output').append($('<p>').text($(node).text()));
+                                    });
+                                }
+                                catch(e){
+                                    console.log('format error');
+                                }
+
+
+                            };
+                            reader.readAsArrayBuffer(file);
+
+                        }
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+</body>
+</html>
