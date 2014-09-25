@@ -16,9 +16,6 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         //this.parser.parse();
         var startNode = this.startNode;
         console.log(startNode);
-        //var allNodes = this.parser.allPlayNodes;
-        //var startNode = testNode1;
-        //var allNodes = [testNode1,testNode2,testNode3];
         this.player = new FlowPlayer(startNode, Snap(rootSnapEle));
         var me = this;
         $(document).on("keydown", function (evt) {

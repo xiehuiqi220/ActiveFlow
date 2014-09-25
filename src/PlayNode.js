@@ -3,7 +3,7 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
     function PlayNode(snapEle, groupSnapEle, rootSnapEle) {
         this.rootSnapEle = S(rootSnapEle);
         this.snapEle = S(snapEle);//snap svg元素
-        this.group=S(groupSnapEle);
+        this.group = S(groupSnapEle);
         this.nextNodes = [];//继任节点集合
         this.prevNodes = [];//父亲节点集合
         this.type = null;
@@ -13,13 +13,13 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
         this.pathStr = null;//path string值，如果不是path元素，则转化获得对应path string值
         this.lastWrapLinePathSnap = null;//
         this.radialIntervalId = null;//
-        this.isStop = true;
+        this.inAnim = false;//是否正在播放动画
         this.wrapLength = 0;
     }
 
     //动画：绘制震源效果
-    var _genRadial=function(snapRoot,x,y,r,timeForAni,callback){
-        function genRadialCircle(){
+    var _genRadial = function (snapRoot, x, y, r, timeForAni, callback) {
+        function genRadialCircle() {
             var circle1 = snapRoot.circle(x, y, 0);
             circle1.attr({
                 fill: "none",
@@ -31,15 +31,16 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
                 Snap(this).remove();
             });
         }
-        var timer = setInterval(genRadialCircle,500);
-        setTimeout(function(){
+
+        var timer = setInterval(genRadialCircle, 500);
+        setTimeout(function () {
             clearInterval(timer);
             callback();
-        },timeForAni);
+        }, timeForAni);
     };
 
     //动画：绘制包裹线条效果
-    var _genLineFill=function(playNode,timeForAni,callback) {
+    var _genLineFill = function (playNode, timeForAni, callback) {
         var
             startTime = Date.now(),
             pathLength = Snap.path.getTotalLength(playNode.pathStr),
@@ -59,8 +60,8 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
                 playNode.lastDrawPathSnap.remove();
             }
             playNode.lastDrawPathSnap = playNode.group.path(subPath).attr({
-                strokeWidth: newStrokeWidth,
-                "class":"active-flow-border active-flow-path-marker"
+                    strokeWidth: newStrokeWidth,
+                    "class": "active-flow-border active-flow-path-marker"
                 }
             );
             if (time > timeForAni) {
@@ -78,19 +79,19 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
 
     };
 
-    //激活该节点播放动画
-    PlayNode.prototype.isStart = function(){
+    //
+    PlayNode.prototype.isStart = function () {
         return this.type == "start";
     };
 
-    //激活该节点播放动画
-    PlayNode.prototype.isRoad = function(){
+    //是否连接线
+    PlayNode.prototype.isRoad = function () {
         return this.type == "road";
     };
 
     //激活该节点播放动画
-    PlayNode.prototype.activate = function (timeForAni,useTTS,callback) {
-        if(useTTS){
+    PlayNode.prototype.activate = function (timeForAni, useTTS, callback) {
+        if (useTTS) {
             TTS.play(this.text);
         }
         //准备path string
@@ -128,39 +129,36 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
         }
 
         //播放动画
-        this.isStop=false;
-        if (this.type=="road") {
-            _genLineFill(this,timeForAni,callback);
+        this.inAnim = true;
+        var meMode = this;
+        if (this.type == "road") {
+            _genLineFill(this, timeForAni, function(){
+                meMode.inAnim = false;
+                callback();
+            });
         } else {
             var dfdFill = $.Deferred();
             var dfdRadial = $.Deferred();
-            _genLineFill(this,timeForAni,function(){
+            _genLineFill(this, timeForAni, function () {
                 dfdFill.resolve();
             });
 
-            if(this.cx!=null&&this.cy!=null){
-                this.radialIntervalId= _genRadial(this.group,this.cx,this.cy,this.r,timeForAni,function(){
+            if (this.cx != null && this.cy != null) {
+                this.radialIntervalId = _genRadial(this.group, this.cx, this.cy, this.r, timeForAni, function () {
                     dfdRadial.resolve();
                 });
             }
-            else{
+            else {
                 dfdRadial.resolve();
             }
-            $.when(dfdFill,dfdRadial).done(function(){callback();});
+            $.when(dfdFill, dfdRadial).done(function () {
+                meMode.inAnim = false;
+                callback();
+            });
         }
     };
 
-    PlayNode.prototype.stop = function () {
-        //动画停止标示
-        this.isStop = true;
-
-        //取消上一节点震源效果
-        if (this.radialIntervalId) {
-            clearInterval(this.radialIntervalId);
-            this.radialIntervalId = null;
-        }
-
-    };
+    //清除动画
     PlayNode.prototype.reset = function () {
         if (this.lastDrawPathSnap) {
             this.lastDrawPathSnap.remove();
@@ -170,12 +168,11 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
             clearInterval(this.radialIntervalId);
             this.radialIntervalId = null;
         }
-        if(this.btnList && this.btnList.length > 0){
+        if (this.btnList && this.btnList.length > 0) {
             this.btnList.forEach(function (el) {
                 el.remove();
             });
         }
-        this.isStop = true;
         this.wrapLength = 0;
     };
 
