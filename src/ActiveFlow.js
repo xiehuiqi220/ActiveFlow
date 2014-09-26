@@ -16,9 +16,6 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
         //this.parser.parse();
         var startNode = this.startNode;
         console.log(startNode);
-        //var allNodes = this.parser.allPlayNodes;
-        //var startNode = testNode1;
-        //var allNodes = [testNode1,testNode2,testNode3];
         this.player = new FlowPlayer(startNode, Snap(rootSnapEle));
         var me = this;
         $(document).on("keydown", function (evt) {
@@ -100,37 +97,8 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
 
     ActiveFlow.prototype.draggable = function () {
         var s = Snap("svg>g");
-
-        var that = s;
-
-        function onMove(dx, dy, x, y, evt) {
-            that.attr({
-                transform:"translate("+(dx)+", "+(dy)+")"
-            });
-        }
-
-        function onStart(x, y, evt) {
-                that.originalX = x;
-                that.originalY = y;
-        }
-
-        s.drag(onMove, onStart);
+        s.drag();
     };
 
     return ActiveFlow;
 });
-
-function getTranslate(str){
-    if(!str){
-        return {x:0,y:0};
-    }
-    var p = str.indexOf("(");
-    str = str.substr(p + 1);
-    var arr = str.split(",");
-    console.log(arr);
-
-    return {
-        x:parseFloat(arr[4]),
-        y:parseFloat(arr[5])
-    }
-}

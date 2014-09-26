@@ -32,22 +32,20 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
             "}";
         cssString += ".active-flow-path-marker{" +
             "marker-end:url(#active-flow-path-marker);" +
-        "}";
+            "}";
 
         var markerString = "<marker id='active-flow-path-marker' overflow='visible' orient='auto'><circle cx='0' cy='0' r='2' fill='#ff7300'></circle></marker>";
-        $("style",this.rootSnapEle.node)[0].innerHTML += cssString;
-        $("defs#Markers",this.rootSnapEle.node)[0].innerHTML += markerString;
+        $("style", this.rootSnapEle.node)[0].innerHTML += cssString;
+        $("defs#Markers", this.rootSnapEle.node)[0].innerHTML += markerString;
     };
 
     //单步播放当前节点
     FlowPlayer.prototype.play = function (fnComplete) {
-        var prevOne = this.queue.lastEle();
-        if (prevOne) {
-            prevOne.stop();
-        }
-
         if (!this.currentPlayNode) {
-            return;
+            return false;
+        }
+        if (this.currentPlayNode.inAnim) {
+            return false;
         }
         var timeForAni = null;
         if (this.currentPlayNode.type == "road") {
@@ -56,19 +54,19 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         else {
             timeForAni = 4000;
         }
-        switch(this.speed){
+        switch (this.speed) {
             case 3:
-            timeForAni = timeForAni/2;
-            break;
+                timeForAni = timeForAni / 2;
+                break;
             case 1:
-            timeForAni = timeForAni*2;
-            break;
+                timeForAni = timeForAni * 2;
+                break;
         }
         console.log(timeForAni);
         this.queue.push(this.currentPlayNode);
         var obj = this;
 
-        this.currentPlayIntervalId = this.currentPlayNode.activate(timeForAni,this.useTTS, function () {
+        this.currentPlayIntervalId = this.currentPlayNode.activate(timeForAni, this.useTTS, function () {
             //删除原型标记
             obj.currentPlayNode.lastDrawPathSnap.removeClass("active-flow-path-marker");
             //判断下一个继任者
@@ -76,7 +74,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                 obj.currentPlayNode = null;
             } else {
                 if (obj.currentPlayNode.nextNodes.length === 1) {
-                    if (obj.currentPlayNode.isRoad()||obj.isAuto) {
+                    if (obj.currentPlayNode.isRoad() || obj.isAuto) {
                         obj.currentPlayNode = obj.currentPlayNode.nextNodes[0];
                         obj.play();
                     } else {
@@ -127,7 +125,11 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
 
     //回退到上一节点
     FlowPlayer.prototype.back = function () {
-        if (this.queue.lastEle().isStart()) {
+        var lastEle = this.queue.lastEle();
+        if(lastEle.inAnim){
+            return false;
+        }
+        if (lastEle.isStart()) {
             var node = this.queue.pop();
             node.reset();
             this.currentPlayNode = node;
@@ -140,16 +142,6 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         if (this.queue.lastEle().isRoad()) {
             this.back();
         }
-    };
-
-    //暂停
-    FlowPlayer.prototype.pause = function () {
-        var prevOne = this.queue.pop();
-        if (prevOne) {
-            prevOne.stop();
-            this.currentPlayNode = prevOne;
-        }
-
     };
 
     return FlowPlayer;
