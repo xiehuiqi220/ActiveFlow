@@ -34,9 +34,11 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
             "marker-end:url(#active-flow-path-marker);" +
             "}";
 
-        var markerString = "<marker id='active-flow-path-marker' overflow='visible' orient='auto'><circle cx='0' cy='0' r='2' fill='#ff7300'></circle></marker>";
+        var markerString = "<marker id='active-flow-path-marker' overflow='visible' orient='auto'>" +
+            "<circle cx='0' cy='0' r='2' fill='#ff7300'></circle>" +
+            "</marker>";
         $("style", this.rootSnapEle.node)[0].innerHTML += cssString;
-        $("defs#Markers", this.rootSnapEle.node)[0].innerHTML += markerString;
+        S("defs#Markers").add(S.parse(markerString));
     };
 
     //单步播放当前节点

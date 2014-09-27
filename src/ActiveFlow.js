@@ -61,6 +61,10 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
     };
 
     ActiveFlow.prototype.init = function () {
+        if(!this.startNode){
+            alert("未获取到开始节点");
+            return false;
+        }
         //box2dMain(this.allLines,this.allNodes);
         //return;
         //绘制三角形
