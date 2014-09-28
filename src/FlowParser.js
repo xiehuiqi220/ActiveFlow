@@ -8,11 +8,15 @@ define(['jquery','Snap','PlayNode'], function ($ , S, PlayNode) {
             return (element.getAttribute('v:groupcontext') === 'shape');
         };
 
+        $.expr[':'].page = function (element) {
+            return (element.getAttribute('v:groupcontext') === 'foregroundPage');
+        };
+
         var
             nodes = [],
             lines = [];
         /* 遍历全部shape */
-        $('g:shape', root).each(function (i, shape) {
+        $('g:page > g:shape', root).each(function (i, shape) {
             var
             /* 获取第一个path或者rect */
                 path = $('path,rect', shape)[0],

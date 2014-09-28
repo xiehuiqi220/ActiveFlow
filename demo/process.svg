@@ -3,7 +3,7 @@
 <!-- 由 Microsoft Visio 11.0, SVG Export, v1.0 生成 process.svg 播放流程 -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
 		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="11.6929in" height="8.26772in"
-		viewBox="0 0 841.89 595.276" xml:space="preserve" color-interpolation-filters="sRGB" class="st7">
+		viewBox="0 0 841.89 595.276" xml:space="preserve" color-interpolation-filters="sRGB" class="st8">
 	<v:documentProperties v:langID="2052" v:metric="true" v:viewMarkup="false">
 		<v:userDefs>
 			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(0):26"/>
@@ -18,7 +18,8 @@
 		.st4 {fill:#404040;fill-opacity:1;stroke:#404040;stroke-opacity:1;stroke-width:0.37313432835821}
 		.st5 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
 		.st6 {font-family:Trebuchet MS;font-size:1em}
-		.st7 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+		.st7 {marker-end:url(#mrkr4-80);stroke:#404040;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5}
+		.st8 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
 	</style>
 
@@ -33,6 +34,10 @@
 			<path d="M 2 1 L 0 0 L 2 -1 L 2 1 " style="stroke:none"/>
 		</g>
 		<marker id="mrkr4-16" class="st4" v:arrowType="4" v:arrowSize="2" v:setback="5.36" refX="-5.36" orient="auto"
+				markerUnits="strokeWidth" overflow="visible">
+			<use xlink:href="#lend4" transform="scale(-2.68,-2.68) "/>
+		</marker>
+		<marker id="mrkr4-80" class="st4" v:arrowType="4" v:arrowSize="2" v:setback="5.12" refX="-5.12" orient="auto"
 				markerUnits="strokeWidth" overflow="visible">
 			<use xlink:href="#lend4" transform="scale(-2.68,-2.68) "/>
 		</marker>
@@ -333,9 +338,10 @@
 				<v:ud v:nameU="msvThemeColors" v:val="VT0(36):26"/>
 				<v:ud v:nameU="msvThemeEffects" v:val="VT0(8):26"/>
 			</v:userDefs>
-			<path d="M0 595.28 L-134.65 595.28 L-134.65 340.16 L-121.43 340.16" class="st3"/>
+			<path d="M0 595.28 C-134.65 595.28 -134.65 527.69 -134.65 460.11 C-134.65 408.14 -134.65 356.18 -120.82 343.22 L-120.48
+						 343.09" class="st7"/>
 		</g>
-		<g id="shape15-80" v:mID="15" v:groupContext="shape" v:layerMember="1" transform="translate(524.409,-318.898)">
+		<g id="shape15-81" v:mID="15" v:groupContext="shape" v:layerMember="1" transform="translate(524.409,-318.898)">
 			<title>动态连接线.15</title>
 			<desc>否</desc>
 			<v:userDefs>

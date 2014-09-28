@@ -11,7 +11,6 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
         this.cy = null;//中心的y坐标，如果节点不是路径，需要设置此值
         this.r = null;
         this.pathStr = null;//path string值，如果不是path元素，则转化获得对应path string值
-        this.lastWrapLinePathSnap = null;//
         this.radialIntervalId = null;//
         this.inAnim = false;//是否正在播放动画
         this.wrapLength = 0;
@@ -162,7 +161,6 @@ define(['jquery','Snap','TTS'], function ($ , S , TTS) {
     PlayNode.prototype.reset = function () {
         if (this.lastDrawPathSnap) {
             this.lastDrawPathSnap.remove();
-            this.lastWrapLinePathSnap = null;
         }
         if (this.radialIntervalId) {
             clearInterval(this.radialIntervalId);
