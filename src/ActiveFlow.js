@@ -23,6 +23,11 @@ define(['jquery','FlowParser','FlowPlayer','PlayNode','Snap'], function ($ , Flo
                 me.prev();
             } else if (evt.keyCode == 39 || evt.keyCode == 40 || evt.keyCode == 13) {//右、下
                 me.next();
+            }else if(evt.keyCode >= 49 && evt.keyCode <= 57){//数字键
+                if(me.player.waitUser){
+                    var num = evt.keyCode - 48;
+                    $("#btnPathSelector_" + num).click();
+                }
             }
         })
     }

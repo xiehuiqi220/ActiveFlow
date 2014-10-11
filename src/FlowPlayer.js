@@ -16,6 +16,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
         this.isAuto = false;
         this.speed = 3;
         this.useTTS = true;
+        this.waitUser = false;//等待用户选择路径
         _init.call(this);
     }
 
@@ -43,6 +44,9 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
 
     //单步播放当前节点
     FlowPlayer.prototype.play = function (fnComplete) {
+        if(this.waitUser){
+            return false;
+        }
         if (!this.currentPlayNode) {
             return false;
         }
@@ -86,6 +90,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                 else {
                     //var n = prompt("please enter number");
                     var index = 0;
+                    obj.waitUser = true;
                     obj.currentPlayNode.btnList = [];
                     obj.currentPlayNode.nextNodes.forEach(function (pl) {
                         index++;
@@ -93,6 +98,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                         var circle = pl.group.circle(bbox.cx, bbox.cy, 10);
                         var text = pl.group.text(bbox.cx - 3, bbox.cy + 5, index);
                         var btn = pl.group.g(circle, text);
+                        btn.attr("id","btnPathSelector_" + index);
                         obj.currentPlayNode.btnList.push(btn);
                         circle.attr({
                             stroke: "#ccc",
@@ -107,11 +113,12 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
                         circle.animate({
                             fill: "orange"
                         }, 4000, mina.easein);
-                        btn.click(function () {
+                        $(btn.node).click(function () {
                             obj.currentPlayNode.btnList.forEach(function (el) {
                                 el.remove();
                             });
                             obj.currentPlayNode = pl;
+                            obj.waitUser = false;
                             obj.play();
                         });
                     });
@@ -127,6 +134,7 @@ define(['jquery','Snap','PlayQueue'], function ($ , S , PlayQueue) {
 
     //回退到上一节点
     FlowPlayer.prototype.back = function () {
+        this.waitUser = false;
         var lastEle = this.queue.lastEle();
         if(lastEle.inAnim){
             return false;
