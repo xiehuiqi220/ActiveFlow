@@ -63,12 +63,13 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
 
         function upload(content) {
             $.post("http://node.ewikisoft.com:3000/file/upload?_=" + new Date().getTime(), { fileContent: content}, function (data) {
-                alert("Data Loaded: " + data);
-            });
+                //alert("Data Loaded: " + data);
+                history.pushState("new", "", "http://xiehuiqi220.github.io/ActiveFlow/demo/player.html?fid=" + data.data);
+            },"json");
         }
 
         function getFile(id){
-            container.html("loading...");
+            container.html("Loading...");
             $.get("http://node.ewikisoft.com:3000/file/get?_=" + new Date().getTime(), { id: id}, function (data) {
                 if(data.errCode == 0){
                     drawInit(data.data);
