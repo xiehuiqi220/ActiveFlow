@@ -12,18 +12,21 @@ requirejs.config({
 });
 
 require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
-
-    function upload(content) {
-        $.post("http://node.ewikisoft.com:3000/file/upload?_=" + new Date().getTime(), { fileContent: content}, function (data) {
-            alert("Data Loaded: " + data);
-        });
-    }
-
-    function getFile(id){
-        $.get("http://node.ewikisoft.com:3000/file/get?_=" + new Date().getTime(), { id: id}, function (data) {
-            alert("Data Loaded: " + data);
-        });
-    }
+//获取url参数方法
+    $.extend({
+        getQuery: function (key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null)
+                return  unescape(r[2]);
+            return null;
+        },
+        getQueryInt: function (key) {
+            var q = jQuery.getQuery(key);
+            q = parseInt(q);
+            return isNaN(q) ? 0 : q;
+        }
+    });
 
     $(function () {
         var
@@ -36,26 +39,51 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
             container.height($(window).height());
         }).trigger('resize');
 
-        container.on('click', function () {
-            inputFile.trigger('click');
-        });
-        getFile(12);
-        inputFile.on('change', function () {
-            var file = this.files[0]; // FileList object
-            var reader = new FileReader();
-            reader.readAsText(file);
-            reader.onload = function () {
-                $(window).off('resize');
-                container.off('click');
-                container.height('auto');
-                var ret = this.result;
-                upload(ret);
-                container.html(ret);
-                af = new ActiveFlow(container.find('svg')[0]);
-                af.init();
-                controllerInit();
-            };
-        });
+        var fileId = $.getQueryInt("fid");
+        if(fileId){
+            getFile(fileId);
+        }else {
+            container.on('click', function () {
+                inputFile.trigger('click');
+            });
+            inputFile.on('change', function () {
+                var file = this.files[0]; // FileList object
+                var reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = function () {
+                    $(window).off('resize');
+                    container.off('click');
+                    container.height('auto');
+                    var ret = this.result;
+                    upload(ret);
+                    drawInit(ret);
+                };
+            });
+        }
+
+        function upload(content) {
+            $.post("http://node.ewikisoft.com:3000/file/upload?_=" + new Date().getTime(), { fileContent: content}, function (data) {
+                alert("Data Loaded: " + data);
+            });
+        }
+
+        function getFile(id){
+            container.html("loading...");
+            $.get("http://node.ewikisoft.com:3000/file/get?_=" + new Date().getTime(), { id: id}, function (data) {
+                if(data.errCode == 0){
+                    drawInit(data.data);
+                }else {
+                    alert(data.errMsg);
+                }
+            },"json");
+        }
+
+        var drawInit = function(ret){
+            container.html(ret);
+            af = new ActiveFlow(container.find('svg')[0]);
+            af.init();
+            controllerInit();
+        };
 
         var controllerInit = function () {
             var toolbar = $('#toolbar');

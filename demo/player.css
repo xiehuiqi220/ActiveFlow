@@ -1,145 +1,149 @@
+#divCanvas {
+    text-align: center;
+}
+
 #toolbar dd.speed,
 #toolbar dd.control .prev,
 #toolbar dd.control .play,
 #toolbar dd.control .next,
-#toolbar dd.voice .button{
-	background:url(bg.png) no-repeat;
+#toolbar dd.voice .button {
+    background: url(bg.png) no-repeat;
 }
 
-#toolbar{
-	position:fixed;
-	bottom:0;
-	left:0;
-	right:0;
-	height:60px;
-	background-color:rgba(71,74,84,.75);
+#toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: rgba(71, 74, 84, .75);
 }
 
-#toolbar dl{
-	display: flex;
-	flex-flow: row;
+#toolbar dl {
+    display: flex;
+    flex-flow: row;
 }
 
-#toolbar dt{
-	width:168px;
-	line-height:60px;
-	text-align:center;
-	background-color:#121318;
-	font-size:24px;
-	color:#FFF;
+#toolbar dt {
+    width: 168px;
+    line-height: 60px;
+    text-align: center;
+    background-color: #121318;
+    font-size: 24px;
+    color: #FFF;
 }
 
-#toolbar dt em{
-	color:#769b4f;
+#toolbar dt em {
+    color: #769b4f;
 }
 
-#toolbar dd.speed{
-	width:170px;
-	padding:10px 0 10px 50px;
-	height:40px;
+#toolbar dd.speed {
+    width: 170px;
+    padding: 10px 0 10px 50px;
+    height: 40px;
 }
 
-#toolbar dd.speed input{
-	height:40px;
+#toolbar dd.speed input {
+    height: 40px;
 }
 
-#toolbar dd.control{
-	flex:1;
+#toolbar dd.control {
+    flex: 1;
 }
 
-#toolbar dd.control .group{
-	height:60px;
-	width:220px;
-	margin:0 auto;
+#toolbar dd.control .group {
+    height: 60px;
+    width: 220px;
+    margin: 0 auto;
 }
 
-#toolbar dd.control .prev{
-	float:left;
-	height:40px;
-	width:40px;
-	margin:10px 0;
-	background-position:0 -70px;
-	transition:opacity .3s;
+#toolbar dd.control .prev {
+    float: left;
+    height: 40px;
+    width: 40px;
+    margin: 10px 0;
+    background-position: 0 -70px;
+    transition: opacity .3s;
 }
 
-#toolbar dd.control .play{
-	float:left;
-	height:60px;
-	width:60px;
-	background-position:-10px -300px;
-	transition:opacity .3s;
+#toolbar dd.control .play {
+    float: left;
+    height: 60px;
+    width: 60px;
+    background-position: -10px -300px;
+    transition: opacity .3s;
 }
 
-#toolbar dd.control .next{
-	float:left;
-	height:40px;
-	width:40px;
-	margin:10px 0;
-	background-position:-4px -127px;
-	transition:opacity .3s;
+#toolbar dd.control .next {
+    float: left;
+    height: 40px;
+    width: 40px;
+    margin: 10px 0;
+    background-position: -4px -127px;
+    transition: opacity .3s;
 }
 
 #toolbar dd.control .prev:hover,
 #toolbar dd.control .play:hover,
-#toolbar dd.control .next:hover{
-	opacity: .6;
-	cursor:pointer;
+#toolbar dd.control .next:hover {
+    opacity: .6;
+    cursor: pointer;
 }
 
-#toolbar dd.control .auto{
-	float:left;
-	height:30px;
-	width:70px;
-	margin:15px 0;
+#toolbar dd.control .auto {
+    float: left;
+    height: 30px;
+    width: 70px;
+    margin: 15px 0;
 }
 
-#toolbar dd.control .auto .button{
-	width:70px;
-	height:30px;
-	line-height:30px;
-	border-radius: 20px;
-	color:#FFF;
-	font-size:14px;
-	text-align:center;
-	cursor:pointer;
+#toolbar dd.control .auto .button {
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 20px;
+    color: #FFF;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
 }
 
-#toolbar dd.control .auto .off{
-	background-color:#CCC;
+#toolbar dd.control .auto .off {
+    background-color: #CCC;
 }
 
-#toolbar dd.control .auto .on{
-	background-color:#769b4f;
+#toolbar dd.control .auto .on {
+    background-color: #769b4f;
 }
 
-#toolbar dd.type{
-	width:128px;
-	background:url(button-classic.png) no-repeat 18px 14px;
-	cursor:pointer;
+#toolbar dd.type {
+    width: 128px;
+    background: url(button-classic.png) no-repeat 18px 14px;
+    cursor: pointer;
 }
 
-#toolbar dd.voice{
-	height:40px;
-	width:40px;
-	padding:10px 5px;
+#toolbar dd.voice {
+    height: 40px;
+    width: 40px;
+    padding: 10px 5px;
 }
 
-#toolbar dd.voice .button{
-	height:40px;
-	overflow:hidden;
-	text-indent:-9999px;
-	transition:opacity .3s;
+#toolbar dd.voice .button {
+    height: 40px;
+    overflow: hidden;
+    text-indent: -9999px;
+    transition: opacity .3s;
 }
 
-#toolbar dd.voice .button:hover{
-	opacity: .6;
-	cursor:pointer;
+#toolbar dd.voice .button:hover {
+    opacity: .6;
+    cursor: pointer;
 }
 
-#toolbar dd.voice .on{
-	background-position:-8px -245px;
+#toolbar dd.voice .on {
+    background-position: -8px -245px;
 }
 
-#toolbar dd.voice .off{
-	background-position:-8px -186px;
+#toolbar dd.voice .off {
+    background-position: -8px -186px;
 }
