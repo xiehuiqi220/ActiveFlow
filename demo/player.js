@@ -70,7 +70,7 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
 
         function getFile(id){
             container.html("Loading...");
-            $.get("http://node.ewikisoft.com:3000/file/get?_=" + new Date().getTime(), { id: id}, function (data) {
+            $.get("http://node.ewikisoft.com:3000/file/get?_=" + new Date().getTime(), { fid: id}, function (data) {
                 if(data.errCode == 0){
                     drawInit(data.data);
                 }else {
