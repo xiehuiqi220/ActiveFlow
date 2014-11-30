@@ -14,11 +14,11 @@ requirejs.config({
 require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
 //获取url参数方法
     $.extend({
-        getQuery: function (key) {
+        getQuery: function (key , len) {
             var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
             if (r != null)
-                return  unescape(r[2]);
+                return  unescape(r[2]).substr(0 , len);
             return null;
         },
         getQueryInt: function (key) {
@@ -39,7 +39,7 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
             container.height($(window).height());
         }).trigger('resize');
 
-        var fileId = $.getQueryInt("fid");
+        var fileId = $.getQuery("fid" , 36);
         if(fileId){
             getFile(fileId);
         }else {
@@ -48,6 +48,10 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
             });
             inputFile.on('change', function () {
                 var file = this.files[0]; // FileList object
+                if(! /.+\.svg$/i.test(file.name)){
+                	alert("亲，暂时只支持SVG文件格式哦");
+                	return false;
+                }
                 var reader = new FileReader();
                 reader.readAsText(file);
                 reader.onload = function () {
@@ -70,13 +74,19 @@ require(['jquery','Snap','ActiveFlow'], function ($ , Snap , ActiveFlow) {
 
         function getFile(id){
             container.html("Loading...");
-            $.get("http://node.ewikisoft.com:3000/file/get?_=" + new Date().getTime(), { fid: id}, function (data) {
+            $.ajax("http://node.ewikisoft.com:3000/file/get", {
+            	data :{ fid: id},
+            	cache : true,
+            	dataType : "json"
+            }).success(function (data) {
                 if(data.errCode == 0){
                     drawInit(data.data);
                 }else {
                     alert(data.errMsg);
                 }
-            },"json");
+            }).error(function(){
+            	console.log("get error");
+            });
         }
 
         var drawInit = function(ret){
